@@ -505,11 +505,8 @@ tfoot td:not(:first-child) { text-align: right; }
 </head>
 <body>
 
-<!-- APP BAR -->
 <header class="app-bar">
-  <div class="app-bar-icon">
-    <span class="material-icons-outlined">science</span>
-  </div>
+  <div class="app-bar-icon"><span class="material-icons-outlined">science</span></div>
   <div>
     <span class="app-bar-title">Simulador de Laboratórios</span>
     <span class="app-bar-sub">Censo Escolar 2025</span>
@@ -518,36 +515,18 @@ tfoot td:not(:first-child) { text-align: right; }
 </header>
 
 <div class="page">
-
-  <!-- STEPPER -->
   <div class="stepper" id="stepper">
-    <div class="step-item">
-      <div class="step-circle active" id="sc1">1</div>
-      <div class="step-label active" id="sl1">Rede</div>
-    </div>
+    <div class="step-item"><div class="step-circle active" id="sc1">1</div><div class="step-label active" id="sl1">Rede</div></div>
     <div class="step-line" id="line1"></div>
-    <div class="step-item">
-      <div class="step-circle" id="sc2">2</div>
-      <div class="step-label" id="sl2">Segmentos</div>
-    </div>
+    <div class="step-item"><div class="step-circle" id="sc2">2</div><div class="step-label" id="sl2">Segmentos</div></div>
     <div class="step-line" id="line2"></div>
-    <div class="step-item">
-      <div class="step-circle" id="sc3">3</div>
-      <div class="step-label" id="sl3">Opcionais</div>
-    </div>
+    <div class="step-item"><div class="step-circle" id="sc3">3</div><div class="step-label" id="sl3">Opcionais</div></div>
     <div class="step-line" id="line3"></div>
-    <div class="step-item">
-      <div class="step-circle" id="sc4">4</div>
-      <div class="step-label" id="sl4">Preços</div>
-    </div>
+    <div class="step-item"><div class="step-circle" id="sc4">4</div><div class="step-label" id="sl4">Preços</div></div>
     <div class="step-line" id="line4"></div>
-    <div class="step-item">
-      <div class="step-circle" id="sc5">5</div>
-      <div class="step-label" id="sl5">Resultado</div>
-    </div>
+    <div class="step-item"><div class="step-circle" id="sc5">5</div><div class="step-label" id="sl5">Resultado</div></div>
   </div>
 
-  <!-- STEP 1 -->
   <div class="card active" id="step1">
     <div class="card-header" onclick="toggleCard(1)">
       <div class="card-header-icon"><span class="material-icons-outlined">apartment</span></div>
@@ -557,42 +536,24 @@ tfoot td:not(:first-child) { text-align: right; }
     <div class="card-body">
       <label class="form-label">Tipo de rede</label>
       <div class="chip-group">
-        <div class="chip" id="chip-estado" onclick="selectRede('estado')">
-          <span class="material-icons-outlined">account_balance</span> Estado
-        </div>
-        <div class="chip" id="chip-municipio" onclick="selectRede('municipio')">
-          <span class="material-icons-outlined">location_city</span> Município
-        </div>
+        <div class="chip" id="chip-estado" onclick="selectRede('estado')"><span class="material-icons-outlined">account_balance</span> Estado</div>
+        <div class="chip" id="chip-municipio" onclick="selectRede('municipio')"><span class="material-icons-outlined">location_city</span> Município</div>
       </div>
-
       <div id="row-uf" style="display:none">
         <label class="form-label">Estado</label>
-        <select class="text-field" id="sel-uf" onchange="onUFChange()">
-          <option value="">Selecione o estado...</option>
-        </select>
+        <select class="text-field" id="sel-uf" onchange="onUFChange()"><option value="">Selecione o estado...</option></select>
       </div>
-
       <div id="row-mun" style="display:none">
         <label class="form-label">Município</label>
-        <select class="text-field" id="sel-mun" onchange="onMunChange()">
-          <option value="">Selecione o município...</option>
-        </select>
+        <select class="text-field" id="sel-mun" onchange="onMunChange()"><option value="">Selecione o município...</option></select>
       </div>
-
-      <div id="info1" style="display:none" class="info-banner">
-        <span class="material-icons-outlined">info</span>
-        <span id="info1-text"></span>
-      </div>
-
+      <div id="info1" style="display:none" class="info-banner"><span class="material-icons-outlined">info</span><span id="info1-text"></span></div>
       <div class="btn-row">
-        <button class="btn-filled" onclick="ir2()">
-          Próximo <span class="material-icons-outlined">arrow_forward</span>
-        </button>
+        <button class="btn-filled" onclick="ir2()">Próximo <span class="material-icons-outlined">arrow_forward</span></button>
       </div>
     </div>
   </div>
 
-  <!-- STEP 2 -->
   <div class="card" id="step2">
     <div class="card-header" onclick="toggleCard(2)">
       <div class="card-header-icon"><span class="material-icons-outlined">school</span></div>
@@ -604,40 +565,26 @@ tfoot td:not(:first-child) { text-align: right; }
         <div class="seg-card" id="seg-ei" onclick="toggleSeg('ei')">
           <div class="seg-card-check" id="chk-ei"></div>
           <span class="material-icons-outlined seg-card-icon">child_care</span>
-          <div class="seg-card-text">
-            <div class="seg-card-label">Educação Infantil</div>
-            <div class="seg-card-desc">Grupos G4 e G5 da pré-escola</div>
-          </div>
+          <div class="seg-card-text"><div class="seg-card-label">Educação Infantil</div><div class="seg-card-desc">Grupos G4 e G5 da pré-escola</div></div>
         </div>
         <div class="seg-card" id="seg-ai" onclick="toggleSeg('ai')">
           <div class="seg-card-check" id="chk-ai"></div>
           <span class="material-icons-outlined seg-card-icon">menu_book</span>
-          <div class="seg-card-text">
-            <div class="seg-card-label">Ensino Fundamental — Anos Iniciais</div>
-            <div class="seg-card-desc">1º ao 5º ano do Ensino Fundamental</div>
-          </div>
+          <div class="seg-card-text"><div class="seg-card-label">Ensino Fundamental — Anos Iniciais</div><div class="seg-card-desc">1º ao 5º ano do Ensino Fundamental</div></div>
         </div>
         <div class="seg-card" id="seg-af" onclick="toggleSeg('af')">
           <div class="seg-card-check" id="chk-af"></div>
           <span class="material-icons-outlined seg-card-icon">science</span>
-          <div class="seg-card-text">
-            <div class="seg-card-label">Ensino Fundamental — Anos Finais</div>
-            <div class="seg-card-desc">6º ao 9º ano do Ensino Fundamental</div>
-          </div>
+          <div class="seg-card-text"><div class="seg-card-label">Ensino Fundamental — Anos Finais</div><div class="seg-card-desc">6º ao 9º ano do Ensino Fundamental</div></div>
         </div>
       </div>
       <div class="btn-row">
-        <button class="btn-outlined" onclick="voltar(1)">
-          <span class="material-icons-outlined">arrow_back</span> Voltar
-        </button>
-        <button class="btn-filled" onclick="ir3()">
-          Próximo <span class="material-icons-outlined">arrow_forward</span>
-        </button>
+        <button class="btn-outlined" onclick="voltar(1)"><span class="material-icons-outlined">arrow_back</span> Voltar</button>
+        <button class="btn-filled" onclick="ir3()">Próximo <span class="material-icons-outlined">arrow_forward</span></button>
       </div>
     </div>
   </div>
 
-  <!-- STEP 3 -->
   <div class="card" id="step3">
     <div class="card-header" onclick="toggleCard(3)">
       <div class="card-header-icon"><span class="material-icons-outlined">add_circle</span></div>
@@ -645,11 +592,10 @@ tfoot td:not(:first-child) { text-align: right; }
       <div class="card-summary" id="sum3"></div>
     </div>
     <div class="card-body" id="body3">
-      <p style="color:var(--sys-on-surface-variant);font-size:14px;padding-top:var(--space-md)">Selecione os segmentos no passo anterior para ver os opcionais disponíveis.</p>
+      <p style="color:var(--sys-on-surface-variant);font-size:14px;padding-top:var(--space-md)">Selecione os segmentos no passo anterior.</p>
     </div>
   </div>
 
-  <!-- STEP 4 -->
   <div class="card" id="step4">
     <div class="card-header" onclick="toggleCard(4)">
       <div class="card-header-icon"><span class="material-icons-outlined">payments</span></div>
@@ -661,12 +607,11 @@ tfoot td:not(:first-child) { text-align: right; }
     </div>
   </div>
 
-  <!-- RESULTS -->
   <div id="results" style="display:none"></div>
-
 </div>
 
 <script>
+
 const S = {
   rede:null, uf:null, uf_nome:null, mun_cod:null, mun_nome:null,
   segs:{ei:false,ai:false,af:false},
@@ -680,7 +625,7 @@ fetch('data/geo.json').then(r=>r.json()).then(d=>{GEO=d;fillUF();}).catch(e=>con
 function fillUF(){
   const sel=document.getElementById('sel-uf');
   Object.entries(GEO).sort((a,b)=>a[1].nome.localeCompare(b[1].nome)).forEach(([k,v])=>{
-    const o=document.createElement('option'); o.value=k; o.textContent=`${v.nome} (${k})`; sel.appendChild(o);
+    const o=document.createElement('option'); o.value=k; o.textContent=v.nome+' ('+k+')'; sel.appendChild(o);
   });
 }
 
@@ -697,12 +642,12 @@ function selectRede(tipo){
 
 function onUFChange(){
   const v=document.getElementById('sel-uf').value;
-  S.uf=v; S.uf_nome=GEO[v]?.nome;
+  S.uf=v; S.uf_nome=GEO[v]?GEO[v].nome:'';
   if(!v) return;
   if(S.rede==='municipio'){
     const ms=document.getElementById('sel-mun');
     ms.innerHTML='<option value="">Selecione o município...</option>';
-    GEO[v].municipios.sort((a,b)=>a.nome.localeCompare(b.nome)).forEach(m=>{
+    GEO[v].municipios.sort((a,b)=>a.nome.localeCompare(b.nome)).forEach(function(m){
       const o=document.createElement('option'); o.value=m.cod; o.textContent=m.nome; ms.appendChild(o);
     });
   }
@@ -711,7 +656,7 @@ function onUFChange(){
 function onMunChange(){
   const sel=document.getElementById('sel-mun');
   S.mun_cod=parseInt(sel.value)||null;
-  S.mun_nome=sel.options[sel.selectedIndex]?.textContent;
+  S.mun_nome=sel.options[sel.selectedIndex]?sel.options[sel.selectedIndex].textContent:'';
 }
 
 function toggleSeg(s){
@@ -728,12 +673,11 @@ function toggleOpt(key){
   if(c) c.textContent=S.opts[key]?'✓':'';
 }
 
-// STEPPER UPDATE
 function updateStepper(active){
-  for(let i=1;i<=5;i++){
-    const sc=document.getElementById('sc'+i);
-    const sl=document.getElementById('sl'+i);
-    const line=document.getElementById('line'+i);
+  for(var i=1;i<=5;i++){
+    var sc=document.getElementById('sc'+i);
+    var sl=document.getElementById('sl'+i);
+    var line=document.getElementById('line'+i);
     sc.className='step-circle'+(i<active?' done':i===active?' active':'');
     sl.className='step-label'+(i<active?' done':i===active?' active':'');
     if(line) line.className='step-line'+(i<active?' done':'');
@@ -741,14 +685,15 @@ function updateStepper(active){
 }
 
 function activateCard(n){
-  document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
-  document.getElementById('step'+n)?.classList.add('active');
+  document.querySelectorAll('.card').forEach(function(c){c.classList.remove('active');});
+  var el=document.getElementById('step'+n);
+  if(el) el.classList.add('active');
   updateStepper(n);
-  setTimeout(()=>document.getElementById('step'+n)?.scrollIntoView({behavior:'smooth',block:'start'}),100);
+  setTimeout(function(){var e=document.getElementById('step'+n);if(e)e.scrollIntoView({behavior:'smooth',block:'start'});},100);
 }
-function markDone(n){ document.getElementById('step'+n)?.classList.add('done'); }
+function markDone(n){ var el=document.getElementById('step'+n); if(el)el.classList.add('done'); }
 function toggleCard(n){
-  const c=document.getElementById('step'+n);
+  var c=document.getElementById('step'+n);
   if(c.classList.contains('active')){c.classList.remove('active');}
   else if(c.classList.contains('done')){activateCard(n);}
 }
@@ -758,633 +703,471 @@ function ir2(){
   if(!S.rede){alert('Selecione o tipo de rede.');return;}
   if(!S.uf){alert('Selecione o estado.');return;}
   if(S.rede==='municipio'&&!S.mun_cod){alert('Selecione o município.');return;}
-  document.getElementById('sum1').textContent=S.rede==='estado'?`${S.uf_nome} (Estadual)`:`${S.mun_nome} (Municipal)`;
+  document.getElementById('sum1').textContent=S.rede==='estado'?(S.uf_nome+' (Estadual)'):(S.mun_nome+' (Municipal)');
   markDone(1); activateCard(2);
 }
 
 function ir3(){
   if(!S.segs.ei&&!S.segs.ai&&!S.segs.af){alert('Selecione pelo menos um segmento.');return;}
-  const labs=[]; if(S.segs.ei)labs.push('EI'); if(S.segs.ai)labs.push('Fund. AI'); if(S.segs.af)labs.push('Fund. AF');
+  var labs=[]; if(S.segs.ei)labs.push('EI'); if(S.segs.ai)labs.push('Fund. AI'); if(S.segs.af)labs.push('Fund. AF');
   document.getElementById('sum2').textContent=labs.join(' · ');
   buildStep3(); markDone(2); activateCard(3);
 }
 
 function ir4(){
-  const opts=[]; if(S.opts.lapbook_ei)opts.push('Lapbook EI'); if(S.opts.lapbook_ai1)opts.push('Lapbook 1º'); if(S.opts.livro_ai)opts.push('Livros AI'); if(S.opts.fll_ai)opts.push('FLL AI'); if(S.opts.livro_af)opts.push('Livros AF'); if(S.opts.fll_af)opts.push('FLL AF');
+  var opts=[]; if(S.opts.lapbook_ei)opts.push('Lapbook EI'); if(S.opts.lapbook_ai1)opts.push('Lapbook 1º'); if(S.opts.livro_ai)opts.push('Livros AI'); if(S.opts.fll_ai)opts.push('FLL AI'); if(S.opts.livro_af)opts.push('Livros AF'); if(S.opts.fll_af)opts.push('FLL AF');
   document.getElementById('sum3').textContent=opts.length?opts.join(' · '):'Nenhum opcional';
   buildStep4(); markDone(3); activateCard(4);
 }
 
 function buildStep3(){
-  let h='';
+  var h='';
   if(S.segs.ei){
-    h+=`<div class="opt-section"><div class="opt-section-title"><span class="material-icons-outlined" style="font-size:16px">child_care</span>Educação Infantil</div>
-      <div class="opt-item ${S.opts.lapbook_ei?'selected':''}" id="opt-lapbook_ei" onclick="toggleOpt('lapbook_ei')">
-        <div class="opt-check" id="ochk-lapbook_ei">${S.opts.lapbook_ei?'✓':''}</div>
-        <span class="opt-label">Lapbook para G4 e G5</span>
-      </div></div>`;
+    h+='<div class="opt-section"><div class="opt-section-title"><span class="material-icons-outlined" style="font-size:16px">child_care</span>Educação Infantil</div>';
+    h+='<div class="opt-item '+(S.opts.lapbook_ei?'selected':'')+'" id="opt-lapbook_ei" onclick="toggleOpt(\'lapbook_ei\')">';
+    h+='<div class="opt-check" id="ochk-lapbook_ei">'+(S.opts.lapbook_ei?'✓':'')+'</div>';
+    h+='<span class="opt-label">Lapbook para G4 e G5</span></div></div>';
   }
   if(S.segs.ai){
-    h+=`<div class="opt-section"><div class="opt-section-title"><span class="material-icons-outlined" style="font-size:16px">menu_book</span>Anos Iniciais</div>
-      <div class="opt-item ${S.opts.fll_ai?'selected':''}" id="opt-fll_ai" onclick="toggleOpt('fll_ai')">
-        <div class="opt-check" id="ochk-fll_ai">${S.opts.fll_ai?'✓':''}</div>
-        <span class="opt-label">FIRST LEGO League — Anos Iniciais</span>
-      </div>
-      <div class="opt-item ${S.opts.lapbook_ai1?'selected':''}" id="opt-lapbook_ai1" onclick="toggleOpt('lapbook_ai1')">
-        <div class="opt-check" id="ochk-lapbook_ai1">${S.opts.lapbook_ai1?'✓':''}</div>
-        <span class="opt-label">Lapbook para o 1º Ano</span>
-      </div>
-      <div class="opt-item ${S.opts.livro_ai?'selected':''}" id="opt-livro_ai" onclick="toggleOpt('livro_ai')">
-        <div class="opt-check" id="ochk-livro_ai">${S.opts.livro_ai?'✓':''}</div>
-        <span class="opt-label">Livros para 2º ao 5º Ano</span>
-      </div></div>`;
+    h+='<div class="opt-section"><div class="opt-section-title"><span class="material-icons-outlined" style="font-size:16px">menu_book</span>Anos Iniciais</div>';
+    h+='<div class="opt-item '+(S.opts.fll_ai?'selected':'')+'" id="opt-fll_ai" onclick="toggleOpt(\'fll_ai\')">';
+    h+='<div class="opt-check" id="ochk-fll_ai">'+(S.opts.fll_ai?'✓':'')+'</div>';
+    h+='<span class="opt-label">FIRST LEGO League — Anos Iniciais</span></div>';
+    h+='<div class="opt-item '+(S.opts.lapbook_ai1?'selected':'')+'" id="opt-lapbook_ai1" onclick="toggleOpt(\'lapbook_ai1\')">';
+    h+='<div class="opt-check" id="ochk-lapbook_ai1">'+(S.opts.lapbook_ai1?'✓':'')+'</div>';
+    h+='<span class="opt-label">Lapbook para o 1º Ano</span></div>';
+    h+='<div class="opt-item '+(S.opts.livro_ai?'selected':'')+'" id="opt-livro_ai" onclick="toggleOpt(\'livro_ai\')">';
+    h+='<div class="opt-check" id="ochk-livro_ai">'+(S.opts.livro_ai?'✓':'')+'</div>';
+    h+='<span class="opt-label">Livros para 2º ao 5º Ano</span></div></div>';
   }
   if(S.segs.af){
-    h+=`<div class="opt-section"><div class="opt-section-title"><span class="material-icons-outlined" style="font-size:16px">science</span>Anos Finais</div>
-      <div class="opt-item ${S.opts.fll_af?'selected':''}" id="opt-fll_af" onclick="toggleOpt('fll_af')">
-        <div class="opt-check" id="ochk-fll_af">${S.opts.fll_af?'✓':''}</div>
-        <span class="opt-label">FIRST LEGO League — Anos Finais</span>
-      </div>
-      <div class="opt-item ${S.opts.livro_af?'selected':''}" id="opt-livro_af" onclick="toggleOpt('livro_af')">
-        <div class="opt-check" id="ochk-livro_af">${S.opts.livro_af?'✓':''}</div>
-        <span class="opt-label">Livros para 6º ao 9º Ano</span>
-      </div></div>`;
+    h+='<div class="opt-section"><div class="opt-section-title"><span class="material-icons-outlined" style="font-size:16px">science</span>Anos Finais</div>';
+    h+='<div class="opt-item '+(S.opts.fll_af?'selected':'')+'" id="opt-fll_af" onclick="toggleOpt(\'fll_af\')">';
+    h+='<div class="opt-check" id="ochk-fll_af">'+(S.opts.fll_af?'✓':'')+'</div>';
+    h+='<span class="opt-label">FIRST LEGO League — Anos Finais</span></div>';
+    h+='<div class="opt-item '+(S.opts.livro_af?'selected':'')+'" id="opt-livro_af" onclick="toggleOpt(\'livro_af\')">';
+    h+='<div class="opt-check" id="ochk-livro_af">'+(S.opts.livro_af?'✓':'')+'</div>';
+    h+='<span class="opt-label">Livros para 6º ao 9º Ano</span></div></div>';
   }
-  h+=`<div class="btn-row">
-    <button class="btn-outlined" onclick="voltar(2)"><span class="material-icons-outlined">arrow_back</span> Voltar</button>
-    <button class="btn-filled" onclick="ir4()">Próximo <span class="material-icons-outlined">arrow_forward</span></button>
-  </div>`;
+  h+='<div class="btn-row">';
+  h+='<button class="btn-outlined" onclick="voltar(2)"><span class="material-icons-outlined">arrow_back</span> Voltar</button>';
+  h+='<button class="btn-filled" onclick="ir4()">Próximo <span class="material-icons-outlined">arrow_forward</span></button>';
+  h+='</div>';
   document.getElementById('body3').innerHTML=h;
 }
 
-
-const DEFAULT_PRICES = {
-  nexis: 99,
-  formacao: 623.75,
-  explorador: 300,
-  lego_duplo: 300,
-  lapbook_ei: 99,
-  mais_mat: 300,
-  comp_ia8: 6765,
-  lapbook_ai1: 99,
-  livro_ai: 150,
-  fll_tapete_ai: 4130,
-  fll_motor_ai: 549.33,
-  fll_ctrl_ai: 549.33,
-  fll_cartao_ai: 549.33,
-  microbit_ai: 350,
-  multicharger_ai: 3000,
-  cabo_multicharger_ai: 200,
-  comp_ia11: 8451,
-  livro_af: 150,
-  fll_tapete_af: 4130,
-  microbit_af: 350,
-  multicharger_af: 3000,
-  cabo_multicharger_af: 200,
+var DEFAULT_PRICES = {
+  nexis:99, formacao:623.75,
+  explorador:300, lego_duplo:300, lapbook_ei:99,
+  mais_mat:300, comp_ia8:6765, lapbook_ai1:99, livro_ai:150,
+  fll_tapete_ai:4130, fll_motor_ai:549.33, fll_ctrl_ai:549.33, fll_cartao_ai:549.33,
+  microbit_ai:350, multicharger_ai:3000, cabo_multicharger_ai:200,
+  comp_ia11:8451, livro_af:150, fll_tapete_af:4130,
+  microbit_af:350, multicharger_af:3000, cabo_multicharger_af:200
 };
 
 function pf(id,lbl){
-  const val = S.prices[id] !== undefined ? S.prices[id] : (DEFAULT_PRICES[id] || '');
-  return `<div class="price-field">
-    <label class="form-label">${lbl}</label>
-    <div class="input-wrap"><span class="prefix">R$</span>
-      <input type="number" class="text-field" id="p-${id}" placeholder="0,00" min="0" step="0.01" value="${val}" style="padding-left:32px">
-    </div></div>`;
+  var val = S.prices[id] !== undefined ? S.prices[id] : (DEFAULT_PRICES[id] || '');
+  return '<div class="price-field"><label class="form-label">'+lbl+'</label>'
+    +'<div class="input-wrap"><span class="prefix">R$</span>'
+    +'<input type="number" class="text-field" id="p-'+id+'" placeholder="0,00" min="0" step="0.01" value="'+val+'" style="padding-left:32px">'
+    +'</div></div>';
 }
 
 function buildStep4(){
-  let h=`<div class="price-section">
-    <div class="price-section-tag"><span class="material-icons-outlined" style="font-size:14px">settings</span>Itens Gerais</div>
-    <div class="grid2">${pf('nexis','Licença Nexis por aluno/ano')}${pf('formacao','Valor da hora de formação (24h/seg./escola)')}</div>
-  </div>`;
+  var h='<div class="price-section"><div class="price-section-tag"><span class="material-icons-outlined" style="font-size:14px">settings</span>Itens Gerais</div>';
+  h+='<div class="grid2">'+pf('nexis','Licença Nexis por aluno/ano')+pf('formacao','Valor da hora de formação (24h/seg./escola)')+'</div></div>';
   if(S.segs.ei){
-    h+=`<div class="price-section"><div class="price-section-tag"><span class="material-icons-outlined" style="font-size:14px">child_care</span>Educação Infantil</div>
-      <div class="grid2">${pf('explorador','Exploradores de Máquinas (kit)')}${pf('lego_duplo','LEGO Duplo Deluxe 10914 (kit)')}</div>
-      ${S.opts.lapbook_ei?pf('lapbook_ei','Lapbook G4/G5 (por aluno)'):''}</div>`;
+    h+='<div class="price-section"><div class="price-section-tag"><span class="material-icons-outlined" style="font-size:14px">child_care</span>Educação Infantil</div>';
+    h+='<div class="grid2">'+pf('explorador','Exploradores de Máquinas (kit)')+pf('lego_duplo','LEGO Duplo Deluxe 10914 (kit)')+'</div>';
+    if(S.opts.lapbook_ei) h+=pf('lapbook_ei','Lapbook G4/G5 (por aluno)');
+    h+='</div>';
   }
   if(S.segs.ai){
-    h+=`<div class="price-section"><div class="price-section-tag"><span class="material-icons-outlined" style="font-size:14px">menu_book</span>Anos Iniciais</div>
-      <div class="grid2">${pf('mais_mat','Mais Matemática (kit)')}${pf('comp_ia8','Computação & IA 8+ (kit)')}</div>
-      ${S.opts.lapbook_ai1?pf('lapbook_ai1','Lapbook 1º Ano (por aluno)'):''} 
-      ${S.opts.livro_ai?pf('livro_ai','Livro 2º ao 5º Ano (por aluno)'):''} 
-      ${S.opts.fll_ai?`<div class="grid2">${pf('fll_tapete_ai','FLL — Tapete')}${pf('fll_motor_ai','FLL — Motor Simples')}${pf('fll_ctrl_ai','FLL — Controlador')}${pf('fll_cartao_ai','FLL — Cartão de Conexão')}</div>`:''}
-      <div class="divider"></div>
-      <div style="font-size:12px;font-weight:600;color:var(--sys-on-surface-variant);text-transform:uppercase;letter-spacing:.6px;margin-bottom:var(--space-sm)">Itens Obrigatórios — Anos Iniciais</div>
-      <div class="grid2">${pf('microbit_ai','Placa BBC micro:bit (AI)')}${pf('multicharger_ai','Multicharger (AI)')}${pf('cabo_multicharger_ai','Cabo de conexão Multicharger (AI)')}</div></div>\`;
+    h+='<div class="price-section"><div class="price-section-tag"><span class="material-icons-outlined" style="font-size:14px">menu_book</span>Anos Iniciais</div>';
+    h+='<div class="grid2">'+pf('mais_mat','Mais Matemática (kit)')+pf('comp_ia8','Computação & IA 8+ (kit)')+'</div>';
+    if(S.opts.lapbook_ai1) h+=pf('lapbook_ai1','Lapbook 1º Ano (por aluno)');
+    if(S.opts.livro_ai) h+=pf('livro_ai','Livro 2º ao 5º Ano (por aluno)');
+    if(S.opts.fll_ai){
+      h+='<div class="grid2">'+pf('fll_tapete_ai','FLL — Tapete')+pf('fll_motor_ai','FLL — Motor Simples')+pf('fll_ctrl_ai','FLL — Controlador')+pf('fll_cartao_ai','FLL — Cartão de Conexão')+'</div>';
+    }
+    h+='<div class="divider"></div>';
+    h+='<div style="font-size:12px;font-weight:600;color:var(--sys-on-surface-variant);text-transform:uppercase;letter-spacing:.6px;margin-bottom:var(--space-sm)">Itens Obrigatórios — Anos Iniciais</div>';
+    h+='<div class="grid2">'+pf('microbit_ai','Placa BBC micro:bit (AI)')+pf('multicharger_ai','Multicharger (AI)')+pf('cabo_multicharger_ai','Cabo de conexão Multicharger (AI)')+'</div></div>';
   }
   if(S.segs.af){
-    h+=`<div class="price-section"><div class="price-section-tag"><span class="material-icons-outlined" style="font-size:14px">science</span>Anos Finais</div>
-      ${pf('comp_ia11','Computação & IA 11+ (kit)')}
-      ${S.opts.livro_af?pf('livro_af','Livro 6º ao 9º Ano (por aluno)'):''} 
-      ${S.opts.fll_af?pf('fll_tapete_af','FLL — Tapete (por laboratório)'):''}
-      <div class="divider"></div>
-      <div style="font-size:12px;font-weight:600;color:var(--sys-on-surface-variant);text-transform:uppercase;letter-spacing:.6px;margin-bottom:var(--space-sm)">Itens Obrigatórios — Anos Finais</div>
-      <div class="grid2">${pf('microbit_af','Placa BBC micro:bit (AF)')}${pf('multicharger_af','Multicharger (AF)')}${pf('cabo_multicharger_af','Cabo de conexão Multicharger (AF)')}</div></div>\`;
+    h+='<div class="price-section"><div class="price-section-tag"><span class="material-icons-outlined" style="font-size:14px">science</span>Anos Finais</div>';
+    h+=pf('comp_ia11','Computação & IA 11+ (kit)');
+    if(S.opts.livro_af) h+=pf('livro_af','Livro 6º ao 9º Ano (por aluno)');
+    if(S.opts.fll_af) h+=pf('fll_tapete_af','FLL — Tapete (por laboratório)');
+    h+='<div class="divider"></div>';
+    h+='<div style="font-size:12px;font-weight:600;color:var(--sys-on-surface-variant);text-transform:uppercase;letter-spacing:.6px;margin-bottom:var(--space-sm)">Itens Obrigatórios — Anos Finais</div>';
+    h+='<div class="grid2">'+pf('microbit_af','Placa BBC micro:bit (AF)')+pf('multicharger_af','Multicharger (AF)')+pf('cabo_multicharger_af','Cabo de conexão Multicharger (AF)')+'</div></div>';
   }
-  h+=`<div class="btn-row">
-    <button class="btn-outlined" onclick="voltar(3)"><span class="material-icons-outlined">arrow_back</span> Voltar</button>
-    <button class="btn-filled" onclick="calcular()"><span class="material-icons-outlined">bar_chart</span> Calcular</button>
-  </div>`;
+  h+='<div class="btn-row">';
+  h+='<button class="btn-outlined" onclick="voltar(3)"><span class="material-icons-outlined">arrow_back</span> Voltar</button>';
+  h+='<button class="btn-filled" onclick="calcular()"><span class="material-icons-outlined">bar_chart</span> Calcular</button>';
+  h+='</div>';
   document.getElementById('body4').innerHTML=h;
 }
 
-function gp(id){return parseFloat(document.getElementById('p-'+id)?.value)||0;}
+function fmt(n){return(n||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function fmtR(n){return 'R$ '+fmt(n);}
+function fmtQ(n){return Math.round(n||0).toLocaleString('pt-BR');}
+
+function addAgg(agg,prod,qtd,unit,cat){
+  if(!agg[prod]) agg[prod]={qtd:0,unit:unit,cat:cat};
+  agg[prod].qtd+=qtd;
+}
+
+function buildResultsHTML(agg, totalEscolas, totalAlunos, netLabel){
+  var catOrder={EI:0,AI:1,AF:2,GERAL:3};
+  var catNames={EI:'Educação Infantil',AI:'Anos Iniciais',AF:'Anos Finais',GERAL:'Itens Gerais'};
+  var pillClass={EI:'pill-ei',AI:'pill-ai',AF:'pill-af',GERAL:'pill-geral'};
+  var rows=Object.entries(agg).sort(function(a,b){return (catOrder[a[1].cat]||9)-(catOrder[b[1].cat]||9);});
+  var grand=0,tbody='',lastCat=null,catTot=0;
+  rows.forEach(function(entry){
+    var prod=entry[0],d=entry[1];
+    var tot=d.qtd*d.unit; grand+=tot;
+    if(d.cat!==lastCat){
+      if(lastCat!==null) tbody+='<tr class="subtotal-row"><td colspan="2" style="text-align:right">Subtotal — '+catNames[lastCat]+'</td><td></td><td>R$ '+fmt(catTot)+'</td></tr>';
+      lastCat=d.cat; catTot=0;
+    }
+    catTot+=tot;
+    tbody+='<tr><td><span class="seg-pill '+pillClass[d.cat]+'">'+d.cat+'</span>'+prod+'</td><td>'+d.qtd.toLocaleString('pt-BR')+'</td><td>'+(d.unit>0?'R$ '+fmt(d.unit):'—')+'</td><td>'+(d.unit>0?'R$ '+fmt(tot):'—')+'</td></tr>';
+  });
+  if(lastCat) tbody+='<tr class="subtotal-row"><td colspan="2" style="text-align:right">Subtotal — '+catNames[lastCat]+'</td><td></td><td>R$ '+fmt(catTot)+'</td></tr>';
+
+  return '<div class="results-card">'
+    +'<div class="results-header"><div>'
+    +'<div class="results-title">Resultado da Simulação</div>'
+    +'<div class="results-subtitle">'+netLabel+'</div>'
+    +'</div><div>'
+    +'<div class="total-label">Valor global do projeto</div>'
+    +'<div class="total-value">R$ '+fmt(grand)+'</div>'
+    +'</div></div>'
+    +'<div class="summary-grid">'
+    +'<div class="summary-cell"><div class="val">'+totalEscolas.toLocaleString('pt-BR')+'</div><div class="lbl">Escolas atendidas</div></div>'
+    +'<div class="summary-cell"><div class="val">'+totalAlunos.toLocaleString('pt-BR')+'</div><div class="lbl">Alunos (total segmentos)</div></div>'
+    +'<div class="summary-cell"><div class="val">'+(grand>0&&totalEscolas>0?'R$ '+fmt(grand/totalEscolas):'—')+'</div><div class="lbl">Valor médio por escola</div></div>'
+    +'<div class="summary-cell"><div class="val">'+(grand>0&&totalAlunos>0?'R$ '+fmt(grand/totalAlunos):'—')+'</div><div class="lbl">Valor médio por aluno</div></div>'
+    +'</div>'
+    +'<div class="table-wrap"><table>'
+    +'<thead><tr><th>Produto</th><th style="text-align:right">Qtd. Total</th><th style="text-align:right">Valor Unit.</th><th style="text-align:right">Valor Total</th></tr></thead>'
+    +'<tbody>'+tbody+'</tbody>'
+    +'<tfoot><tr><td colspan="3">Valor Global do Projeto</td><td style="text-align:right">R$ '+fmt(grand)+'</td></tr></tfoot>'
+    +'</table></div>'
+    +'<div class="results-footer">'
+    +'<button class="btn-filled" onclick="downloadCSV()"><span class="material-icons-outlined">download</span> Baixar detalhamento (.csv)</button>'
+    +'<button class="btn-outlined" onclick="location.reload()"><span class="material-icons-outlined">refresh</span> Nova simulação</button>'
+    +'<button class="btn-outlined" onclick="document.getElementById(\'upload-csv-input\').click()"><span class="material-icons-outlined">upload_file</span> Upar planilha editada</button>'
+    +'<input type="file" id="upload-csv-input" accept=".csv" style="display:none" onchange="processarCSVEditado(this)">'
+    +'<button class="btn-filled" style="background:linear-gradient(135deg,#b971e0,#7c3aad)" onclick="baixarProposta(event)"><span class="material-icons-outlined">description</span> Baixar proposta</button>'
+    +'</div></div>';
+}
 
 async function calcular(){
-  ['nexis','formacao','explorador','lego_duplo','lapbook_ei','mais_mat','comp_ia8','lapbook_ai1','livro_ai','fll_tapete_ai','fll_motor_ai','fll_ctrl_ai','fll_cartao_ai','microbit_ai','multicharger_ai','cabo_multicharger_ai','comp_ia11','livro_af','fll_tapete_af','microbit_af','multicharger_af','cabo_multicharger_af'].forEach(k=>{
-    const el=document.getElementById('p-'+k); if(el) S.prices[k]=parseFloat(el.value)||0;
-  });
+  var keys=['nexis','formacao','explorador','lego_duplo','lapbook_ei','mais_mat','comp_ia8','lapbook_ai1','livro_ai','fll_tapete_ai','fll_motor_ai','fll_ctrl_ai','fll_cartao_ai','microbit_ai','multicharger_ai','cabo_multicharger_ai','comp_ia11','livro_af','fll_tapete_af','microbit_af','multicharger_af','cabo_multicharger_af'];
+  keys.forEach(function(k){ var el=document.getElementById('p-'+k); if(el) S.prices[k]=parseFloat(el.value)||0; });
   markDone(4); updateStepper(5);
-  const area=document.getElementById('results');
+  var area=document.getElementById('results');
   area.style.display='block';
-  area.innerHTML=`<div class="results-card"><div class="loading"><div class="spinner"></div><div>Carregando dados das escolas...</div></div></div>`;
-  setTimeout(()=>area.scrollIntoView({behavior:'smooth'}),100);
+  area.innerHTML='<div class="results-card"><div class="loading"><div class="spinner"></div><div>Carregando dados das escolas...</div></div></div>';
+  setTimeout(function(){area.scrollIntoView({behavior:'smooth'});},100);
 
-  let escolas;
-  try{ const r=await fetch(`data/${S.uf}.json`); escolas=await r.json(); }
-  catch(e){ area.innerHTML=`<div class="info-banner" style="margin-top:var(--space-lg)"><span class="material-icons-outlined">error</span>Erro ao carregar dados do estado ${S.uf}.</div>`; return; }
+  var escolas;
+  try{ var r=await fetch('data/'+S.uf+'.json'); escolas=await r.json(); }
+  catch(e){ area.innerHTML='<div class="info-banner" style="margin-top:var(--space-lg)"><span class="material-icons-outlined">error</span>Erro ao carregar dados do estado '+S.uf+'.</div>'; return; }
 
-  const filtradas=S.rede==='estado'?escolas.filter(e=>e.dep===2):escolas.filter(e=>e.dep===3&&e.mun_cod===S.mun_cod);
-  const agg={}; let totalEscolas=0,totalAlunos=0; const csvRows=[];
-  function addAgg(prod,qtd,unit,cat){ if(!agg[prod]) agg[prod]={qtd:0,unit,cat}; agg[prod].qtd+=qtd; }
+  var filtradas=S.rede==='estado'?escolas.filter(function(e){return e.dep===2;}):escolas.filter(function(e){return e.dep===3&&e.mun_cod===S.mun_cod;});
+  var agg={}; var totalEscolas=0,totalAlunos=0; var csvRows=[];
 
-  filtradas.forEach(e=>{
-    const segsEsc=[];
-    const row={Escola:e.nome,Municipio:e.mun,UF:S.uf,Dependencia:S.rede==='estado'?'Estadual':'Municipal',Formacao_Total_horas:0,EI_Laboratorios:0,EI_Alunos:0,EI_Maior_Turma:0,EI_Exploradores_Maquinas_kits:0,EI_LEGO_Duplo_kits:0,EI_Lapbook_G4G5_alunos:0,EI_Licenca_Nexis_alunos:0,AI_Laboratorios:0,AI_Alunos:0,AI_Alunos_1ano:0,AI_Alunos_2ao5ano:0,AI_Maior_Turma:0,AI_Mais_Matematica_kits:0,AI_Computacao_IA8_kits:0,AI_Lapbook_1ano_alunos:0,AI_Livro_2ao5ano_alunos:0,AI_FLL_Tapete:0,AI_FLL_Motor_Simples:0,AI_FLL_Controlador:0,AI_FLL_Cartao_Conexao:0,AI_Licenca_Nexis_alunos:0,AI_Microbit_unid:0,AI_Multicharger_unid:0,AI_Cabo_Multicharger_unid:0,AF_Laboratorios:0,AF_Alunos:0,AF_Maior_Turma:0,AF_Computacao_IA11_kits:0,AF_Livro_6ao9ano_alunos:0,AF_FLL_Tapete:0,AF_Licenca_Nexis_alunos:0};
+  filtradas.forEach(function(e){
+    var segsEsc=[];
+    var row={Escola:e.nome,Municipio:e.mun,UF:S.uf,Dependencia:S.rede==='estado'?'Estadual':'Municipal',Formacao_Total_horas:0,
+      EI_Laboratorios:0,EI_Alunos:0,EI_Maior_Turma:0,EI_Exploradores_Maquinas_kits:0,EI_LEGO_Duplo_kits:0,EI_Lapbook_G4G5_alunos:0,EI_Licenca_Nexis_alunos:0,
+      AI_Laboratorios:0,AI_Alunos:0,AI_Alunos_1ano:0,AI_Alunos_2ao5ano:0,AI_Maior_Turma:0,AI_Mais_Matematica_kits:0,AI_Computacao_IA8_kits:0,AI_Lapbook_1ano_alunos:0,AI_Livro_2ao5ano_alunos:0,AI_FLL_Tapete:0,AI_FLL_Motor_Simples:0,AI_FLL_Controlador:0,AI_FLL_Cartao_Conexao:0,AI_Licenca_Nexis_alunos:0,AI_Microbit_unid:0,AI_Multicharger_unid:0,AI_Cabo_Multicharger_unid:0,
+      AF_Laboratorios:0,AF_Alunos:0,AF_Maior_Turma:0,AF_Computacao_IA11_kits:0,AF_Livro_6ao9ano_alunos:0,AF_FLL_Tapete:0,AF_Licenca_Nexis_alunos:0,AF_Microbit_unid:0,AF_Multicharger_unid:0,AF_Cabo_Multicharger_unid:0};
 
     if(S.segs.ei&&e.ei_lab>0&&e.ei_mat>0){
-      const kpl=Math.ceil(e.ei_mt/4)||1;
-      addAgg('Exploradores de Máquinas',kpl*e.ei_lab,S.prices.explorador,'EI');
-      addAgg('LEGO Duplo Deluxe 10914',kpl*e.ei_lab,S.prices.lego_duplo,'EI');
-      if(S.opts.lapbook_ei) addAgg('Lapbook G4/G5',e.ei_mat,S.prices.lapbook_ei,'EI');
-      addAgg('Licença Nexis — EI',e.ei_mat,S.prices.nexis,'GERAL');
+      var kpl=Math.ceil(e.ei_mt/4)||1;
+      addAgg(agg,'Exploradores de Máquinas',kpl*e.ei_lab,S.prices.explorador,'EI');
+      addAgg(agg,'LEGO Duplo Deluxe 10914',kpl*e.ei_lab,S.prices.lego_duplo,'EI');
+      if(S.opts.lapbook_ei) addAgg(agg,'Lapbook G4/G5',e.ei_mat,S.prices.lapbook_ei,'EI');
+      addAgg(agg,'Licença Nexis — EI',e.ei_mat,S.prices.nexis,'GERAL');
       totalAlunos+=e.ei_mat; segsEsc.push('EI');
       row.EI_Laboratorios=e.ei_lab; row.EI_Alunos=e.ei_mat; row.EI_Maior_Turma=e.ei_mt;
       row.EI_Exploradores_Maquinas_kits=kpl*e.ei_lab; row.EI_LEGO_Duplo_kits=kpl*e.ei_lab;
       row.EI_Lapbook_G4G5_alunos=S.opts.lapbook_ei?e.ei_mat:0; row.EI_Licenca_Nexis_alunos=e.ei_mat;
     }
     if(S.segs.ai&&e.ai_lab>0&&e.ai_mat>0){
-      const kpl=Math.ceil(e.ai_mt/4)||1;
-      const compIA8qtd=kpl*e.ai_lab;
-      addAgg('Mais Matemática',kpl*e.ai_lab,S.prices.mais_mat,'AI');
-      addAgg('Computação & IA 8+',compIA8qtd,S.prices.comp_ia8,'AI');
-      // Produtos obrigatórios AI
-      const microbit_ai=Math.ceil((e.ai_mt3a5||e.ai_mt)/2)*e.ai_lab;
-      const multicharger_ai=Math.ceil(compIA8qtd/4);
-      addAgg('Placa BBC micro:bit (AI)',microbit_ai,S.prices.microbit_ai,'AI');
-      addAgg('Multicharger (AI)',multicharger_ai,S.prices.multicharger_ai,'AI');
-      addAgg('Cabo Multicharger (AI)',multicharger_ai,S.prices.cabo_multicharger_ai,'AI');
-      if(S.opts.lapbook_ai1&&e.ai_mat1>0) addAgg('Lapbook 1º Ano',e.ai_mat1,S.prices.lapbook_ai1,'AI');
-      if(S.opts.livro_ai&&e.ai_mat2a5>0) addAgg('Livro 2º ao 5º Ano',e.ai_mat2a5,S.prices.livro_ai,'AI');
-      if(S.opts.fll_ai){ addAgg('FLL — Tapete (AI)',e.ai_lab,S.prices.fll_tapete_ai,'AI'); addAgg('FLL — Motor Simples (AI)',2*e.ai_lab,S.prices.fll_motor_ai,'AI'); addAgg('FLL — Controlador (AI)',2*e.ai_lab,S.prices.fll_ctrl_ai,'AI'); addAgg('FLL — Cartão de Conexão (AI)',2*e.ai_lab,S.prices.fll_cartao_ai,'AI'); }
-      addAgg('Licença Nexis — AI',e.ai_mat,S.prices.nexis,'GERAL');
+      var kplAI=Math.ceil(e.ai_mt/4)||1;
+      var compIA8qtd=kplAI*e.ai_lab;
+      var microbit_ai=Math.ceil((e.ai_mt3a5||e.ai_mt)/2)*e.ai_lab;
+      var multicharger_ai=Math.ceil(compIA8qtd/4);
+      addAgg(agg,'Mais Matemática',kplAI*e.ai_lab,S.prices.mais_mat,'AI');
+      addAgg(agg,'Computação & IA 8+',compIA8qtd,S.prices.comp_ia8,'AI');
+      addAgg(agg,'Placa BBC micro:bit (AI)',microbit_ai,S.prices.microbit_ai,'AI');
+      addAgg(agg,'Multicharger (AI)',multicharger_ai,S.prices.multicharger_ai,'AI');
+      addAgg(agg,'Cabo Multicharger (AI)',multicharger_ai,S.prices.cabo_multicharger_ai,'AI');
+      if(S.opts.lapbook_ai1&&e.ai_mat1>0) addAgg(agg,'Lapbook 1º Ano',e.ai_mat1,S.prices.lapbook_ai1,'AI');
+      if(S.opts.livro_ai&&e.ai_mat2a5>0) addAgg(agg,'Livro 2º ao 5º Ano',e.ai_mat2a5,S.prices.livro_ai,'AI');
+      if(S.opts.fll_ai){
+        addAgg(agg,'FLL — Tapete (AI)',e.ai_lab,S.prices.fll_tapete_ai,'AI');
+        addAgg(agg,'FLL — Motor Simples (AI)',2*e.ai_lab,S.prices.fll_motor_ai,'AI');
+        addAgg(agg,'FLL — Controlador (AI)',2*e.ai_lab,S.prices.fll_ctrl_ai,'AI');
+        addAgg(agg,'FLL — Cartão de Conexão (AI)',2*e.ai_lab,S.prices.fll_cartao_ai,'AI');
+      }
+      addAgg(agg,'Licença Nexis — AI',e.ai_mat,S.prices.nexis,'GERAL');
       totalAlunos+=e.ai_mat; segsEsc.push('AI');
       row.AI_Laboratorios=e.ai_lab; row.AI_Alunos=e.ai_mat; row.AI_Alunos_1ano=e.ai_mat1; row.AI_Alunos_2ao5ano=e.ai_mat2a5; row.AI_Maior_Turma=e.ai_mt;
-      row.AI_Mais_Matematica_kits=kpl*e.ai_lab; row.AI_Computacao_IA8_kits=kpl*e.ai_lab;
+      row.AI_Mais_Matematica_kits=kplAI*e.ai_lab; row.AI_Computacao_IA8_kits=kplAI*e.ai_lab;
       row.AI_Lapbook_1ano_alunos=S.opts.lapbook_ai1?e.ai_mat1:0; row.AI_Livro_2ao5ano_alunos=S.opts.livro_ai?e.ai_mat2a5:0;
-      row.AI_FLL_Tapete=S.opts.fll_ai?e.ai_lab:0; row.AI_FLL_Motor_Simples=S.opts.fll_ai?2*e.ai_lab:0; row.AI_FLL_Controlador=S.opts.fll_ai?2*e.ai_lab:0; row.AI_FLL_Cartao_Conexao=S.opts.fll_ai?2*e.ai_lab:0;
-      row.AI_Licenca_Nexis_alunos=e.ai_mat;
-      row.AI_Microbit_unid=microbit_ai;
-      row.AI_Multicharger_unid=multicharger_ai;
-      row.AI_Cabo_Multicharger_unid=multicharger_ai;
+      row.AI_FLL_Tapete=S.opts.fll_ai?e.ai_lab:0; row.AI_FLL_Motor_Simples=S.opts.fll_ai?2*e.ai_lab:0;
+      row.AI_FLL_Controlador=S.opts.fll_ai?2*e.ai_lab:0; row.AI_FLL_Cartao_Conexao=S.opts.fll_ai?2*e.ai_lab:0;
+      row.AI_Licenca_Nexis_alunos=e.ai_mat; row.AI_Microbit_unid=microbit_ai; row.AI_Multicharger_unid=multicharger_ai; row.AI_Cabo_Multicharger_unid=multicharger_ai;
     }
     if(S.segs.af&&e.af_lab>0&&e.af_mat>0){
-      const kpl=Math.ceil(e.af_mt/4)||1;
-      const compIA11qtd=kpl*e.af_lab;
-      addAgg('Computação & IA 11+',compIA11qtd,S.prices.comp_ia11,'AF');
-      // Produtos obrigatórios AF
-      const microbit_af=Math.ceil((e.af_mt6a9||e.af_mt)/2)*e.af_lab;
-      const multicharger_af=Math.ceil(compIA11qtd/2);
-      addAgg('Placa BBC micro:bit (AF)',microbit_af,S.prices.microbit_af,'AF');
-      addAgg('Multicharger (AF)',multicharger_af,S.prices.multicharger_af,'AF');
-      addAgg('Cabo Multicharger (AF)',multicharger_af,S.prices.cabo_multicharger_af,'AF');
-      if(S.opts.livro_af) addAgg('Livro 6º ao 9º Ano',e.af_mat,S.prices.livro_af,'AF');
-      if(S.opts.fll_af) addAgg('FLL — Tapete (AF)',e.af_lab,S.prices.fll_tapete_af,'AF');
-      addAgg('Licença Nexis — AF',e.af_mat,S.prices.nexis,'GERAL');
+      var kplAF=Math.ceil(e.af_mt/4)||1;
+      var compIA11qtd=kplAF*e.af_lab;
+      var microbit_af=Math.ceil((e.af_mt6a9||e.af_mt)/2)*e.af_lab;
+      var multicharger_af=Math.ceil(compIA11qtd/2);
+      addAgg(agg,'Computação & IA 11+',compIA11qtd,S.prices.comp_ia11,'AF');
+      addAgg(agg,'Placa BBC micro:bit (AF)',microbit_af,S.prices.microbit_af,'AF');
+      addAgg(agg,'Multicharger (AF)',multicharger_af,S.prices.multicharger_af,'AF');
+      addAgg(agg,'Cabo Multicharger (AF)',multicharger_af,S.prices.cabo_multicharger_af,'AF');
+      if(S.opts.livro_af) addAgg(agg,'Livro 6º ao 9º Ano',e.af_mat,S.prices.livro_af,'AF');
+      if(S.opts.fll_af) addAgg(agg,'FLL — Tapete (AF)',e.af_lab,S.prices.fll_tapete_af,'AF');
+      addAgg(agg,'Licença Nexis — AF',e.af_mat,S.prices.nexis,'GERAL');
       totalAlunos+=e.af_mat; segsEsc.push('AF');
       row.AF_Laboratorios=e.af_lab; row.AF_Alunos=e.af_mat; row.AF_Maior_Turma=e.af_mt;
-      row.AF_Computacao_IA11_kits=kpl*e.af_lab; row.AF_Livro_6ao9ano_alunos=S.opts.livro_af?e.af_mat:0;
+      row.AF_Computacao_IA11_kits=kplAF*e.af_lab; row.AF_Livro_6ao9ano_alunos=S.opts.livro_af?e.af_mat:0;
       row.AF_FLL_Tapete=S.opts.fll_af?e.af_lab:0; row.AF_Licenca_Nexis_alunos=e.af_mat;
-      row.AF_Microbit_unid=microbit_af;
-      row.AF_Multicharger_unid=multicharger_af;
-      row.AF_Cabo_Multicharger_unid=multicharger_af;
+      row.AF_Microbit_unid=microbit_af; row.AF_Multicharger_unid=multicharger_af; row.AF_Cabo_Multicharger_unid=multicharger_af;
     }
     if(segsEsc.length>0){
-      const h=segsEsc.length*24; row.Formacao_Total_horas=h;
-      addAgg('Formação ('+h+'h/escola)',h,S.prices.formacao,'GERAL');
+      var h=segsEsc.length*24; row.Formacao_Total_horas=h;
+      addAgg(agg,'Formação ('+h+'h/escola)',h,S.prices.formacao,'GERAL');
       totalEscolas++; csvRows.push(row);
     }
   });
 
-  const catOrder={EI:0,AI:1,AF:2,GERAL:3};
-  const catNames={EI:'Educação Infantil',AI:'Anos Iniciais',AF:'Anos Finais',GERAL:'Itens Gerais'};
-  const pillClass={EI:'pill-ei',AI:'pill-ai',AF:'pill-af',GERAL:'pill-geral'};
-  const rows=Object.entries(agg).sort((a,b)=>(catOrder[a[1].cat]||9)-(catOrder[b[1].cat]||9));
-  let grand=0,tbody='',lastCat=null,catTot=0;
-  rows.forEach(([prod,d])=>{
-    const tot=d.qtd*d.unit; grand+=tot;
-    if(d.cat!==lastCat){
-      if(lastCat!==null) tbody+=`<tr class="subtotal-row"><td colspan="2" style="text-align:right">Subtotal — ${catNames[lastCat]}</td><td></td><td>R$ ${fmt(catTot)}</td></tr>`;
-      lastCat=d.cat; catTot=0;
-    }
-    catTot+=tot;
-    tbody+=`<tr><td><span class="seg-pill ${pillClass[d.cat]}">${d.cat}</span>${prod}</td><td>${d.qtd.toLocaleString('pt-BR')}</td><td>${d.unit>0?'R$ '+fmt(d.unit):'—'}</td><td>${d.unit>0?'R$ '+fmt(tot):'—'}</td></tr>`;
-  });
-  if(lastCat) tbody+=`<tr class="subtotal-row"><td colspan="2" style="text-align:right">Subtotal — ${catNames[lastCat]}</td><td></td><td>R$ ${fmt(catTot)}</td></tr>`;
-
-  const netLabel=S.rede==='estado'?`Rede Estadual — ${S.uf_nome}`:`Rede Municipal — ${S.mun_nome} (${S.uf})`;
-  area.innerHTML=`
-  <div class="results-card">
-    <div class="results-header">
-      <div>
-        <div class="results-title">Resultado da Simulação</div>
-        <div class="results-subtitle">${netLabel}</div>
-      </div>
-      <div>
-        <div class="total-label">Valor global do projeto</div>
-        <div class="total-value">R$ ${fmt(grand)}</div>
-      </div>
-    </div>
-    <div class="summary-grid">
-      <div class="summary-cell"><div class="val">${totalEscolas.toLocaleString('pt-BR')}</div><div class="lbl">Escolas atendidas</div></div>
-      <div class="summary-cell"><div class="val">${totalAlunos.toLocaleString('pt-BR')}</div><div class="lbl">Alunos (total segmentos)</div></div>
-      <div class="summary-cell"><div class="val">${grand>0&&totalEscolas>0?'R$ '+fmt(grand/totalEscolas):'—'}</div><div class="lbl">Valor médio por escola</div></div>
-      <div class="summary-cell"><div class="val">${grand>0&&totalAlunos>0?'R$ '+fmt(grand/totalAlunos):'—'}</div><div class="lbl">Valor médio por aluno</div></div>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Produto</th><th style="text-align:right">Qtd. Total</th><th style="text-align:right">Valor Unit.</th><th style="text-align:right">Valor Total</th></tr></thead>
-        <tbody>${tbody}</tbody>
-        <tfoot><tr><td colspan="3">Valor Global do Projeto</td><td>R$ ${fmt(grand)}</td></tr></tfoot>
-      </table>
-    </div>
-    <div class="results-footer">
-      <button class="btn-filled" onclick="downloadCSV()"><span class="material-icons-outlined">download</span> Baixar detalhamento por escola (.csv)</button>
-      <button class="btn-outlined" onclick="location.reload()"><span class="material-icons-outlined">refresh</span> Nova simulação</button>
-      <button class="btn-outlined" onclick="document.getElementById('upload-csv-input').click()">
-        <span class="material-icons-outlined">upload_file</span> Upar planilha editada
-      </button>
-      <input type="file" id="upload-csv-input" accept=".csv" style="display:none" onchange="processarCSVEditado(this)">
-      <button class="btn-filled" style="background:linear-gradient(135deg,#b971e0,#7c3aad)" onclick="baixarProposta()">
-        <span class="material-icons-outlined">description</span> Baixar proposta
-      </button>
-    </div>
-  </div>\`;
+  var netLabel=S.rede==='estado'?('Rede Estadual — '+S.uf_nome):('Rede Municipal — '+S.mun_nome+' ('+S.uf+')');
+  area.innerHTML=buildResultsHTML(agg,totalEscolas,totalAlunos,netLabel);
   window._csv=csvRows;
+  window._agg=agg;
 }
-
-
-
-// ===================== FEATURE 2: UPLOAD CSV EDITADO =====================
-function processarCSVEditado(input) {
-  const file = input.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    const text = e.target.result;
-    const lines = text.split('\n').filter(l => l.trim());
-    if (lines.length < 2) { alert('CSV vazio ou inválido.'); return; }
-
-    const headers = lines[0].split(';').map(h => h.trim().replace(/^\uFEFF/, ''));
-    const rows = lines.slice(1).map(line => {
-      const vals = line.split(';');
-      const obj = {};
-      headers.forEach((h, i) => obj[h] = vals[i]?.trim() || '0');
-      return obj;
-    });
-
-    // Recalculate aggregates from edited CSV
-    const newAgg = {};
-    let newEscolas = 0, newAlunos = 0;
-
-    // Map CSV columns back to product names
-    const colMap = {
-      EI_Exploradores_Maquinas_kits: { prod: 'Exploradores de Máquinas', unit: S.prices.explorador, cat: 'EI' },
-      EI_LEGO_Duplo_kits:            { prod: 'LEGO Duplo Deluxe 10914', unit: S.prices.lego_duplo, cat: 'EI' },
-      EI_Lapbook_G4G5_alunos:        { prod: 'Lapbook G4/G5', unit: S.prices.lapbook_ei, cat: 'EI' },
-      EI_Licenca_Nexis_alunos:       { prod: 'Licença Nexis — EI', unit: S.prices.nexis, cat: 'GERAL' },
-      AI_Mais_Matematica_kits:       { prod: 'Mais Matemática', unit: S.prices.mais_mat, cat: 'AI' },
-      AI_Computacao_IA8_kits:        { prod: 'Computação & IA 8+', unit: S.prices.comp_ia8, cat: 'AI' },
-      AI_Lapbook_1ano_alunos:        { prod: 'Lapbook 1º Ano', unit: S.prices.lapbook_ai1, cat: 'AI' },
-      AI_Livro_2ao5ano_alunos:       { prod: 'Livro 2º ao 5º Ano', unit: S.prices.livro_ai, cat: 'AI' },
-      AI_FLL_Tapete:                 { prod: 'FLL — Tapete (AI)', unit: S.prices.fll_tapete_ai, cat: 'AI' },
-      AI_FLL_Motor_Simples:          { prod: 'FLL — Motor Simples (AI)', unit: S.prices.fll_motor_ai, cat: 'AI' },
-      AI_FLL_Controlador:            { prod: 'FLL — Controlador (AI)', unit: S.prices.fll_ctrl_ai, cat: 'AI' },
-      AI_FLL_Cartao_Conexao:         { prod: 'FLL — Cartão de Conexão (AI)', unit: S.prices.fll_cartao_ai, cat: 'AI' },
-      AI_Microbit_unid:              { prod: 'Placa BBC micro:bit (AI)', unit: S.prices.microbit_ai, cat: 'AI' },
-      AI_Multicharger_unid:          { prod: 'Multicharger (AI)', unit: S.prices.multicharger_ai, cat: 'AI' },
-      AI_Cabo_Multicharger_unid:     { prod: 'Cabo Multicharger (AI)', unit: S.prices.cabo_multicharger_ai, cat: 'AI' },
-      AI_Licenca_Nexis_alunos:       { prod: 'Licença Nexis — AI', unit: S.prices.nexis, cat: 'GERAL' },
-      AF_Computacao_IA11_kits:       { prod: 'Computação & IA 11+', unit: S.prices.comp_ia11, cat: 'AF' },
-      AF_Livro_6ao9ano_alunos:       { prod: 'Livro 6º ao 9º Ano', unit: S.prices.livro_af, cat: 'AF' },
-      AF_FLL_Tapete:                 { prod: 'FLL — Tapete (AF)', unit: S.prices.fll_tapete_af, cat: 'AF' },
-      AF_Microbit_unid:              { prod: 'Placa BBC micro:bit (AF)', unit: S.prices.microbit_af, cat: 'AF' },
-      AF_Multicharger_unid:          { prod: 'Multicharger (AF)', unit: S.prices.multicharger_af, cat: 'AF' },
-      AF_Cabo_Multicharger_unid:     { prod: 'Cabo Multicharger (AF)', unit: S.prices.cabo_multicharger_af, cat: 'AF' },
-      AF_Licenca_Nexis_alunos:       { prod: 'Licença Nexis — AF', unit: S.prices.nexis, cat: 'GERAL' },
-    };
-
-    const seenEscolas = new Set();
-    rows.forEach(row => {
-      if (!row.Escola) return;
-      if (!seenEscolas.has(row.Escola)) {
-        seenEscolas.add(row.Escola);
-        newEscolas++;
-      }
-      // Formação por escola (baseada nas horas do CSV)
-      const hForm = parseInt(row.Formacao_Total_horas) || 0;
-      if (hForm > 0) {
-        const key = 'Formação (' + hForm + 'h/escola)';
-        if (!newAgg[key]) newAgg[key] = { qtd: 0, unit: S.prices.formacao, cat: 'GERAL' };
-        newAgg[key].qtd += hForm;
-      }
-      // All product columns
-      Object.entries(colMap).forEach(([col, meta]) => {
-        const q = parseInt(row[col]) || 0;
-        if (q > 0) {
-          if (!newAgg[meta.prod]) newAgg[meta.prod] = { qtd: 0, unit: meta.unit, cat: meta.cat };
-          newAgg[meta.prod].qtd += q;
-        }
-      });
-      // Alunos
-      newAlunos += (parseInt(row.EI_Alunos)||0) + (parseInt(row.AI_Alunos)||0) + (parseInt(row.AF_Alunos)||0);
-    });
-
-    // Store new data and re-render results
-    window._csvData = rows;
-    window._agg = newAgg;
-
-    const netLabel = S.rede==='estado' ? \`Rede Estadual — \${S.uf_nome} (planilha editada)\` : \`Rede Municipal — \${S.mun_nome} (\${S.uf}) — planilha editada\`;
-    renderResultados(newAgg, newEscolas, newAlunos, netLabel);
-    alert(\`✅ Planilha carregada! \${rows.length} linhas processadas, \${newEscolas} escolas.\`);
-  };
-  reader.readAsText(file, 'UTF-8');
-  input.value = '';
-}
-
-// ===================== FEATURE 1: BAIXAR PROPOSTA =====================
-async function baixarProposta() {
-  const agg = window._agg;
-  if (!agg) { alert('Calcule a simulação primeiro.'); return; }
-
-  // Show loading state on button
-  const btn = event.target.closest('button');
-  const orig = btn.innerHTML;
-  btn.innerHTML = '<span class="material-icons-outlined">hourglass_top</span> Gerando...';
-  btn.disabled = true;
-
-  try {
-    // Load template
-    const resp = await fetch('data/proposta_template.docx');
-    if (!resp.ok) throw new Error('Template não encontrado');
-    const templateBuf = await resp.arrayBuffer();
-
-    const zip = await JSZip.loadAsync(templateBuf);
-    let docXml = await zip.file('word/document.xml').async('string');
-
-    // Helper functions
-    const fmtN = (n) => {
-      if (!n && n !== 0) return '—';
-      return Number(n).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    };
-    const fmtR = (n) => 'R$ ' + fmtN(n);
-    const fmtQ = (n) => Math.round(n).toLocaleString('pt-BR');
-
-    // Get totals from agg
-    const getQtdUnit = (names) => {
-      for (const name of (Array.isArray(names) ? names : [names])) {
-        const k = Object.keys(agg).find(k => k.includes(name));
-        if (k) return { qtd: agg[k].qtd, unit: agg[k].unit };
-      }
-      return { qtd: 0, unit: 0 };
-    };
-
-    // --- Licenças Nexis (soma de todas) ---
-    let nexisLic = 0, nexisUnit = S.prices.nexis;
-    Object.entries(agg).forEach(([k,v]) => { if(k.includes('Nexis')) nexisLic += v.qtd; });
-    const nexisTot = nexisLic * nexisUnit;
-
-    // --- Produtos ---
-    const p = {
-      explorador:   getQtdUnit('Exploradores'),
-      lego_duplo:   getQtdUnit('LEGO Duplo'),
-      mais_mat:     getQtdUnit('Mais Matemática'),
-      comp_ia8:     getQtdUnit('IA 8+'),
-      comp_ia11:    getQtdUnit('IA 11+'),
-      microbit:     { qtd: (getQtdUnit('micro:bit (AI)').qtd||0)+(getQtdUnit('micro:bit (AF)').qtd||0), unit: S.prices.microbit_ai },
-      fll_tapete:   { qtd: (getQtdUnit('Tapete (AI)').qtd||0)+(getQtdUnit('Tapete (AF)').qtd||0), unit: S.prices.fll_tapete_ai },
-      fll_motor:    getQtdUnit('Motor Simples'),
-      fll_ctrl:     getQtdUnit('Controlador'),
-      fll_cartao:   getQtdUnit('Cartão'),
-      multicharger: { qtd: (getQtdUnit('Multicharger (AI)').qtd||0)+(getQtdUnit('Multicharger (AF)').qtd||0), unit: S.prices.multicharger_ai },
-      cabo:         { qtd: (getQtdUnit('Cabo Multicharger (AI)').qtd||0)+(getQtdUnit('Cabo Multicharger (AF)').qtd||0), unit: S.prices.cabo_multicharger_ai },
-      lapbook:      { qtd: (getQtdUnit('Lapbook G4').qtd||0)+(getQtdUnit('Lapbook 1º').qtd||0), unit: S.prices.lapbook_ei },
-      livros:       { qtd: (getQtdUnit('Livro 2º').qtd||0)+(getQtdUnit('Livro 6º').qtd||0), unit: S.prices.livro_ai },
-    };
-
-    // Formação total
-    let horasForm = 0;
-    Object.entries(agg).forEach(([k,v]) => { if(k.includes('Formação')) horasForm += v.qtd; });
-    const totForm = horasForm * S.prices.formacao;
-
-    // Total geral (produtos + nexis + formação)
-    let grandTotal = nexisTot + totForm;
-    Object.values(p).forEach(x => grandTotal += x.qtd * x.unit);
-
-    const tem_fll = p.fll_tapete.qtd > 0;
-    const tem_lapbook = p.lapbook.qtd > 0;
-    const tem_livros = p.livros.qtd > 0;
-    const tem_paradidatico = tem_lapbook || tem_livros;
-
-    // ===== XML replacements =====
-    const esc = (s) => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-
-    // 1.1 Nexis
-    docXml = docXml.replace(' xxxxx', ' ' + esc(fmtQ(nexisLic)));
-    docXml = docXml.replace('XX meses', '12 meses');
-    docXml = docXml.replace('R$ xxx,xx', esc(fmtR(nexisUnit)));
-    docXml = docXml.replace('R$ xxxxx,xx', esc(fmtR(nexisTot)));
-    docXml = docXml.replace('R$ xxxxx,xx', esc(fmtR(nexisTot))); // row 3
-
-    // Helper to patch product row
-    const patchProd = (marker, qtd, unit) => {
-      const tot = qtd * unit;
-      const re = new RegExp(
-        '(' + marker.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '[\\s\\S]*?<w:t>)XX(<\/w:t>[\\s\\S]*?<w:t>)R\$ XXXX,XX(<\/w:t>[\\s\\S]*?<w:t>)R\$\u00a0XXX,XX(<\/w:t>)',
-        ''
-      );
-      docXml = docXml.replace(re,
-        '$1' + esc(fmtQ(qtd)) + '$2' + esc(fmtR(unit)) + '$3' + esc(fmtR(tot)) + '$4'
-      );
-    };
-
-    const replaceXX = (marker, qtd, unit) => {
-      const tot = qtd * unit;
-      const idx = docXml.indexOf(marker);
-      if (idx < 0) return;
-      // After marker, find first XX, R$ XXXX,XX, R$ XXX,XX
-      let seg = docXml.slice(idx, idx + 2000);
-      seg = seg.replace(/<w:t>XX<\/w:t>/, '<w:t>' + esc(fmtQ(qtd)) + '</w:t>');
-      seg = seg.replace(/<w:t>R\$ XXXX,XX<\/w:t>/, '<w:t>' + esc(fmtR(unit)) + '</w:t>');
-      seg = seg.replace(/<w:t>R\$ XXX,XX<\/w:t>/, '<w:t>' + esc(fmtR(tot)) + '</w:t>');
-      docXml = docXml.slice(0, idx) + seg + docXml.slice(idx + 2000);
-    };
-
-    replaceXX('CONJUNTO EXPLORADORES', p.explorador.qtd, p.explorador.unit);
-    replaceXX('CONJUNTO LEGO® DUPLO', p.lego_duplo.qtd, p.lego_duplo.unit);
-    replaceXX('45210', p.mais_mat.qtd, p.mais_mat.unit);
-    replaceXX('45521', p.comp_ia8.qtd, p.comp_ia8.unit);
-    replaceXX('45522', p.comp_ia11.qtd, p.comp_ia11.unit);
-    replaceXX('PLACA DE PROGRAMA', p.microbit.qtd, p.microbit.unit);
-    replaceXX('CARREGADOR MULTI CHARGER', p.multicharger.qtd, p.multicharger.unit);
-    replaceXX('CABO DE CONEX', p.cabo.qtd, p.cabo.unit);
-
-    // FLL
-    if (tem_fll) {
-      replaceXX('45834', p.fll_tapete.qtd, p.fll_tapete.unit);
-      const patchFll02 = (marker, qtd, unit) => {
-        const tot = qtd * unit;
-        const idx = docXml.indexOf(marker);
-        if (idx < 0) return;
-        let seg = docXml.slice(idx, idx + 2000);
-        seg = seg.replace(/<w:t>02<\/w:t>/, '<w:t>' + esc(fmtQ(qtd)) + '</w:t>');
-        seg = seg.replace(/<w:t>R\$ XXXX,XX<\/w:t>/, '<w:t>' + esc(fmtR(unit)) + '</w:t>');
-        seg = seg.replace(/<w:t>R\$ XXX,XX<\/w:t>/, '<w:t>' + esc(fmtR(tot)) + '</w:t>');
-        docXml = docXml.slice(0, idx) + seg + docXml.slice(idx + 2000);
-      };
-      patchFll02('MOTORES SIMPLES', p.fll_motor.qtd, p.fll_motor.unit);
-      patchFll02('CONTROLADORES', p.fll_ctrl.qtd, p.fll_ctrl.unit);
-      patchFll02('PACOTES DE CART', p.fll_cartao.qtd, p.fll_cartao.unit);
-    } else {
-      // Remove FLL rows
-      ['45834 &#x2013; FIRST', 'MOTORES SIMPLES', 'CONTROLADORES', 'PACOTES DE CART'].forEach(marker => {
-        docXml = docXml.replace(
-          new RegExp('<w:tr\\b[^>]*>[\\s\\S]*?' + marker.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '[\\s\\S]*?<\/w:tr>', ''),
-          ''
-        );
-      });
-    }
-
-    // Paradidático
-    if (tem_paradidatico) {
-      const parTot = p.lapbook.qtd + p.livros.qtd;
-      const parUnit = tem_lapbook ? S.prices.lapbook_ei : S.prices.livro_ai;
-      replaceXX('MATERIAL PARADID', parTot, parUnit);
-    } else {
-      docXml = docXml.replace(
-        new RegExp('<w:tr\\b[^>]*>[\\s\\S]*?MATERIAL PARADID[\\s\\S]*?<\/w:tr>', ''), ''
-      );
-    }
-
-    // 1.3 Formação
-    const replaceService = (marker, horas, unit) => {
-      const tot = horas * unit;
-      const idx = docXml.indexOf(marker);
-      if (idx < 0) return;
-      let seg = docXml.slice(idx, idx + 2000);
-      seg = seg.replace(/<w:t>xx<\/w:t>/, '<w:t>' + esc(fmtQ(horas)) + '</w:t>');
-      seg = seg.replace(/<w:t>R\$ xxx,xx<\/w:t>/, '<w:t>' + esc(fmtR(unit)) + '</w:t>');
-      // Total spans R$ + space + xxxxx,xx
-      seg = seg.replace(/xxxxx,xx/, esc(fmtN(tot)));
-      docXml = docXml.slice(0, idx) + seg + docXml.slice(idx + 2000);
-    };
-    replaceService('FORMAÇÃO DE EDUCADORES', horasForm, S.prices.formacao);
-
-    // Total geral
-    docXml = docXml.replace('XXXX,XX ', esc(fmtN(grandTotal)) + ' ');
-    docXml = docXml.replace('EXTENSO', esc(fmtR(grandTotal)));
-
-    // Save modified XML back to zip
-    zip.file('word/document.xml', docXml);
-
-    // Generate and download
-    const blob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = \`Proposta_Nexis_\${S.uf}_\${new Date().toISOString().slice(0,10)}.docx\`;
-    a.click();
-    URL.revokeObjectURL(url);
-
-  } catch(err) {
-    console.error(err);
-    alert('Erro ao gerar proposta: ' + err.message);
-  } finally {
-    btn.innerHTML = orig;
-    btn.disabled = false;
-  }
-}
-
-// ===================== RENDER RESULTADOS (extracted for reuse) =====================
-function renderResultados(agg, totalEscolas, totalAlunos, netLabel) {
-  const catOrder={EI:0,AI:1,AF:2,GERAL:3};
-  const catNames={EI:'Educação Infantil',AI:'Anos Iniciais',AF:'Anos Finais',GERAL:'Itens Gerais'};
-  const pillClass={EI:'pill-ei',AI:'pill-ai',AF:'pill-af',GERAL:'pill-geral'};
-  const rows=Object.entries(agg).sort((a,b)=>(catOrder[a[1].cat]||9)-(catOrder[b[1].cat]||9));
-  let grand=0,tbody='',lastCat=null,catTot=0;
-  rows.forEach(([prod,d])=>{
-    const tot=d.qtd*d.unit; grand+=tot;
-    if(d.cat!==lastCat){
-      if(lastCat!==null) tbody+=\`<tr class="subtotal-row"><td colspan="2" style="text-align:right">Subtotal — \${catNames[lastCat]}</td><td></td><td>R$ \${fmt(catTot)}</td></tr>\`;
-      lastCat=d.cat; catTot=0;
-    }
-    catTot+=tot;
-    tbody+=\`<tr><td><span class="seg-pill \${pillClass[d.cat]}">\${d.cat}</span>\${prod}</td><td>\${d.qtd.toLocaleString('pt-BR')}</td><td>\${d.unit>0?'R$ '+fmt(d.unit):'—'}</td><td>\${d.unit>0?'R$ '+fmt(tot):'—'}</td></tr>\`;
-  });
-  if(lastCat) tbody+=\`<tr class="subtotal-row"><td colspan="2" style="text-align:right">Subtotal — \${catNames[lastCat]}</td><td></td><td>R$ \${fmt(catTot)}</td></tr>\`;
-
-  const area = document.getElementById('results');
-  area.innerHTML=\`
-  <div class="results-card">
-    <div class="results-header">
-      <div>
-        <div class="results-title">Resultado da Simulação</div>
-        <div class="results-subtitle">\${netLabel}</div>
-      </div>
-      <div>
-        <div class="total-label">Valor global do projeto</div>
-        <div class="total-value">R$ \${fmt(grand)}</div>
-      </div>
-    </div>
-    <div class="summary-grid">
-      <div class="summary-cell"><div class="val">\${totalEscolas.toLocaleString('pt-BR')}</div><div class="lbl">Escolas atendidas</div></div>
-      <div class="summary-cell"><div class="val">\${totalAlunos.toLocaleString('pt-BR')}</div><div class="lbl">Alunos (total segmentos)</div></div>
-      <div class="summary-cell"><div class="val">\${grand>0&&totalEscolas>0?'R$ '+fmt(grand/totalEscolas):'—'}</div><div class="lbl">Valor médio por escola</div></div>
-      <div class="summary-cell"><div class="val">\${grand>0&&totalAlunos>0?'R$ '+fmt(grand/totalAlunos):'—'}</div><div class="lbl">Valor médio por aluno</div></div>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Produto</th><th style="text-align:right">Qtd. Total</th><th style="text-align:right">Valor Unit.</th><th style="text-align:right">Valor Total</th></tr></thead>
-        <tbody>\${tbody}</tbody>
-        <tfoot><tr><td colspan="3">Valor Global do Projeto</td><td>R$ \${fmt(grand)}</td></tr></tfoot>
-      </table>
-    </div>
-    <div class="results-footer">
-      <button class="btn-filled" onclick="downloadCSV()"><span class="material-icons-outlined">download</span> Baixar detalhamento por escola (.csv)</button>
-      <button class="btn-outlined" onclick="location.reload()"><span class="material-icons-outlined">refresh</span> Nova simulação</button>
-      <button class="btn-outlined" onclick="document.getElementById('upload-csv-input').click()">
-        <span class="material-icons-outlined">upload_file</span> Upar planilha editada
-      </button>
-      <input type="file" id="upload-csv-input" accept=".csv" style="display:none" onchange="processarCSVEditado(this)">
-      <button class="btn-filled" style="background:linear-gradient(135deg,#b971e0,#7c3aad)" onclick="baixarProposta()">
-        <span class="material-icons-outlined">description</span> Baixar proposta
-      </button>
-    </div>
-  </div>\`;
-  window._agg = agg;
-}
-
-function fmt(n){return(n||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
 
 function downloadCSV(){
   if(!window._csv||!window._csv.length) return;
-  const keys=Object.keys(window._csv[0]);
-  let c=keys.join(';')+'\n';
-  window._csv.forEach(r=>{c+=keys.map(k=>r[k]??'').join(';')+'\n';});
-  const a=document.createElement('a');
+  var keys=Object.keys(window._csv[0]);
+  var c=keys.join(';')+'\n';
+  window._csv.forEach(function(r){c+=keys.map(function(k){return r[k]!=null?r[k]:'';}).join(';')+'\n';});
+  var a=document.createElement('a');
   a.href=URL.createObjectURL(new Blob(['\ufeff'+c],{type:'text/csv;charset=utf-8'}));
-  a.download=`simulacao_${S.uf}_${Date.now()}.csv`; a.click();
+  a.download='simulacao_'+S.uf+'_'+Date.now()+'.csv'; a.click();
 }
+
+function processarCSVEditado(input){
+  var file=input.files[0]; if(!file) return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    var text=e.target.result;
+    var lines=text.split('\n').filter(function(l){return l.trim();});
+    if(lines.length<2){alert('CSV vazio ou inválido.');return;}
+    var headers=lines[0].split(';').map(function(h){return h.trim().replace(/^\uFEFF/,'');});
+    var rows=lines.slice(1).map(function(line){
+      var vals=line.split(';');
+      var obj={};
+      headers.forEach(function(h,i){obj[h]=vals[i]?vals[i].trim():'0';});
+      return obj;
+    });
+    var newAgg={}; var newEscolas=0,newAlunos=0;
+    var colMap={
+      EI_Exploradores_Maquinas_kits:{prod:'Exploradores de Máquinas',unit:S.prices.explorador,cat:'EI'},
+      EI_LEGO_Duplo_kits:{prod:'LEGO Duplo Deluxe 10914',unit:S.prices.lego_duplo,cat:'EI'},
+      EI_Lapbook_G4G5_alunos:{prod:'Lapbook G4/G5',unit:S.prices.lapbook_ei,cat:'EI'},
+      EI_Licenca_Nexis_alunos:{prod:'Licença Nexis — EI',unit:S.prices.nexis,cat:'GERAL'},
+      AI_Mais_Matematica_kits:{prod:'Mais Matemática',unit:S.prices.mais_mat,cat:'AI'},
+      AI_Computacao_IA8_kits:{prod:'Computação & IA 8+',unit:S.prices.comp_ia8,cat:'AI'},
+      AI_Lapbook_1ano_alunos:{prod:'Lapbook 1º Ano',unit:S.prices.lapbook_ai1,cat:'AI'},
+      AI_Livro_2ao5ano_alunos:{prod:'Livro 2º ao 5º Ano',unit:S.prices.livro_ai,cat:'AI'},
+      AI_FLL_Tapete:{prod:'FLL — Tapete (AI)',unit:S.prices.fll_tapete_ai,cat:'AI'},
+      AI_FLL_Motor_Simples:{prod:'FLL — Motor Simples (AI)',unit:S.prices.fll_motor_ai,cat:'AI'},
+      AI_FLL_Controlador:{prod:'FLL — Controlador (AI)',unit:S.prices.fll_ctrl_ai,cat:'AI'},
+      AI_FLL_Cartao_Conexao:{prod:'FLL — Cartão de Conexão (AI)',unit:S.prices.fll_cartao_ai,cat:'AI'},
+      AI_Microbit_unid:{prod:'Placa BBC micro:bit (AI)',unit:S.prices.microbit_ai,cat:'AI'},
+      AI_Multicharger_unid:{prod:'Multicharger (AI)',unit:S.prices.multicharger_ai,cat:'AI'},
+      AI_Cabo_Multicharger_unid:{prod:'Cabo Multicharger (AI)',unit:S.prices.cabo_multicharger_ai,cat:'AI'},
+      AI_Licenca_Nexis_alunos:{prod:'Licença Nexis — AI',unit:S.prices.nexis,cat:'GERAL'},
+      AF_Computacao_IA11_kits:{prod:'Computação & IA 11+',unit:S.prices.comp_ia11,cat:'AF'},
+      AF_Livro_6ao9ano_alunos:{prod:'Livro 6º ao 9º Ano',unit:S.prices.livro_af,cat:'AF'},
+      AF_FLL_Tapete:{prod:'FLL — Tapete (AF)',unit:S.prices.fll_tapete_af,cat:'AF'},
+      AF_Microbit_unid:{prod:'Placa BBC micro:bit (AF)',unit:S.prices.microbit_af,cat:'AF'},
+      AF_Multicharger_unid:{prod:'Multicharger (AF)',unit:S.prices.multicharger_af,cat:'AF'},
+      AF_Cabo_Multicharger_unid:{prod:'Cabo Multicharger (AF)',unit:S.prices.cabo_multicharger_af,cat:'AF'},
+      AF_Licenca_Nexis_alunos:{prod:'Licença Nexis — AF',unit:S.prices.nexis,cat:'GERAL'}
+    };
+    var seenEscolas=new Set();
+    rows.forEach(function(row){
+      if(!row.Escola) return;
+      if(!seenEscolas.has(row.Escola)){seenEscolas.add(row.Escola);newEscolas++;}
+      var hForm=parseInt(row.Formacao_Total_horas)||0;
+      if(hForm>0){
+        var key='Formação ('+hForm+'h/escola)';
+        if(!newAgg[key]) newAgg[key]={qtd:0,unit:S.prices.formacao,cat:'GERAL'};
+        newAgg[key].qtd+=hForm;
+      }
+      Object.entries(colMap).forEach(function(entry){
+        var col=entry[0],meta=entry[1];
+        var q=parseInt(row[col])||0;
+        if(q>0){
+          if(!newAgg[meta.prod]) newAgg[meta.prod]={qtd:0,unit:meta.unit,cat:meta.cat};
+          newAgg[meta.prod].qtd+=q;
+        }
+      });
+      newAlunos+=(parseInt(row.EI_Alunos)||0)+(parseInt(row.AI_Alunos)||0)+(parseInt(row.AF_Alunos)||0);
+    });
+    window._csvData=rows; window._agg=newAgg;
+    var netLabel=(S.rede==='estado'?('Rede Estadual — '+S.uf_nome):('Rede Municipal — '+S.mun_nome+' ('+S.uf+')'))+'  [planilha editada]';
+    var area=document.getElementById('results');
+    area.innerHTML=buildResultsHTML(newAgg,newEscolas,newAlunos,netLabel);
+    window._agg=newAgg;
+    alert('Planilha carregada! '+rows.length+' linhas, '+newEscolas+' escolas.');
+  };
+  reader.readAsText(file,'UTF-8');
+  input.value='';
+}
+
+async function baixarProposta(evt){
+  var agg=window._agg;
+  if(!agg){alert('Calcule a simulação primeiro.');return;}
+  var btn=evt?evt.target.closest('button'):null;
+  var orig=btn?btn.innerHTML:'';
+  if(btn){btn.innerHTML='<span class="material-icons-outlined">hourglass_top</span> Gerando...';btn.disabled=true;}
+  try{
+    var resp=await fetch('data/proposta_template.docx');
+    if(!resp.ok) throw new Error('Template não encontrado');
+    var templateBuf=await resp.arrayBuffer();
+    var zip=await JSZip.loadAsync(templateBuf);
+    var docXml=await zip.file('word/document.xml').async('string');
+
+    function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+    function getQ(names){
+      var arr=Array.isArray(names)?names:[names];
+      for(var i=0;i<arr.length;i++){
+        var k=Object.keys(agg).find(function(k){return k.indexOf(arr[i])>=0;});
+        if(k) return {qtd:agg[k].qtd,unit:agg[k].unit};
+      }
+      return {qtd:0,unit:0};
+    }
+
+    var nexisLic=0;
+    Object.entries(agg).forEach(function(en){if(en[0].indexOf('Nexis')>=0)nexisLic+=en[1].qtd;});
+    var nexisUnit=S.prices.nexis, nexisTot=nexisLic*nexisUnit;
+
+    var p={
+      explorador:getQ('Exploradores'), lego_duplo:getQ('LEGO Duplo'),
+      mais_mat:getQ('Mais Matemática'), comp_ia8:getQ('IA 8+'), comp_ia11:getQ('IA 11+'),
+      microbit:{qtd:(getQ('micro:bit (AI)').qtd||0)+(getQ('micro:bit (AF)').qtd||0),unit:S.prices.microbit_ai},
+      fll_tapete:{qtd:(getQ('Tapete (AI)').qtd||0)+(getQ('Tapete (AF)').qtd||0),unit:S.prices.fll_tapete_ai},
+      fll_motor:getQ('Motor Simples'), fll_ctrl:getQ('Controlador'), fll_cartao:getQ('Cartão'),
+      multicharger:{qtd:(getQ('Multicharger (AI)').qtd||0)+(getQ('Multicharger (AF)').qtd||0),unit:S.prices.multicharger_ai},
+      cabo:{qtd:(getQ('Cabo Multicharger (AI)').qtd||0)+(getQ('Cabo Multicharger (AF)').qtd||0),unit:S.prices.cabo_multicharger_ai},
+      lapbook:{qtd:(getQ('Lapbook G4').qtd||0)+(getQ('Lapbook 1º').qtd||0),unit:S.prices.lapbook_ei},
+      livros:{qtd:(getQ('Livro 2º').qtd||0)+(getQ('Livro 6º').qtd||0),unit:S.prices.livro_ai}
+    };
+
+    var horasForm=0;
+    Object.entries(agg).forEach(function(en){if(en[0].indexOf('Formação')>=0)horasForm+=en[1].qtd;});
+    var totForm=horasForm*S.prices.formacao;
+    var grandTotal=nexisTot+totForm;
+    Object.values(p).forEach(function(x){grandTotal+=x.qtd*x.unit;});
+
+    var tem_fll=p.fll_tapete.qtd>0;
+    var tem_paradidatico=(p.lapbook.qtd>0||p.livros.qtd>0);
+
+    // 1.1 Nexis
+    docXml=docXml.replace(' xxxxx',' '+esc(fmtQ(nexisLic)));
+    docXml=docXml.replace('XX meses','12 meses');
+    docXml=docXml.replace('R$ xxx,xx',esc(fmtR(nexisUnit)));
+    docXml=docXml.replace('R$ xxxxx,xx',esc(fmtR(nexisTot)));
+    docXml=docXml.replace('R$ xxxxx,xx',esc(fmtR(nexisTot)));
+
+    function replaceXX(marker,qtd,unit){
+      var tot=qtd*unit;
+      var idx=docXml.indexOf(marker); if(idx<0)return;
+      var seg=docXml.slice(idx,idx+2000);
+      seg=seg.replace(/<w:t>XX<\/w:t>/,'<w:t>'+esc(fmtQ(qtd))+'</w:t>');
+      seg=seg.replace(/<w:t>R\$ XXXX,XX<\/w:t>/,'<w:t>'+esc(fmtR(unit))+'</w:t>');
+      seg=seg.replace(/<w:t>R\$\u00a0XXX,XX<\/w:t>/,'<w:t>'+esc(fmtR(tot))+'</w:t>');
+      docXml=docXml.slice(0,idx)+seg+docXml.slice(idx+2000);
+    }
+
+    replaceXX('CONJUNTO EXPLORADORES',p.explorador.qtd,p.explorador.unit);
+    replaceXX('CONJUNTO LEGO\u00ae DUPLO',p.lego_duplo.qtd,p.lego_duplo.unit);
+    replaceXX('45210',p.mais_mat.qtd,p.mais_mat.unit);
+    replaceXX('45521',p.comp_ia8.qtd,p.comp_ia8.unit);
+    replaceXX('45522',p.comp_ia11.qtd,p.comp_ia11.unit);
+    replaceXX('PLACA DE PROGRAMA',p.microbit.qtd,p.microbit.unit);
+    replaceXX('CARREGADOR MULTI CHARGER',p.multicharger.qtd,p.multicharger.unit);
+    replaceXX('CABO DE CONEX',p.cabo.qtd,p.cabo.unit);
+
+    if(tem_fll){
+      replaceXX('45834',p.fll_tapete.qtd,p.fll_tapete.unit);
+      function patch02(marker,qtd,unit){
+        var tot=qtd*unit; var idx=docXml.indexOf(marker); if(idx<0)return;
+        var seg=docXml.slice(idx,idx+2000);
+        seg=seg.replace(/<w:t>02<\/w:t>/,'<w:t>'+esc(fmtQ(qtd))+'</w:t>');
+        seg=seg.replace(/<w:t>R\$ XXXX,XX<\/w:t>/,'<w:t>'+esc(fmtR(unit))+'</w:t>');
+        seg=seg.replace(/<w:t>R\$\u00a0XXX,XX<\/w:t>/,'<w:t>'+esc(fmtR(tot))+'</w:t>');
+        docXml=docXml.slice(0,idx)+seg+docXml.slice(idx+2000);
+      }
+      patch02('MOTORES SIMPLES',p.fll_motor.qtd,p.fll_motor.unit);
+      patch02('CONTROLADORES',p.fll_ctrl.qtd,p.fll_ctrl.unit);
+      patch02('PACOTES DE CART',p.fll_cartao.qtd,p.fll_cartao.unit);
+    } else {
+      ['45834 &#x2013; FIRST','MOTORES SIMPLES','CONTROLADORES','PACOTES DE CART'].forEach(function(m){
+        docXml=docXml.replace(new RegExp('<w:tr\\b[^>]*>[\\s\\S]*?'+m.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'[\\s\\S]*?<\/w:tr>',''),'');
+      });
+    }
+
+    if(!tem_paradidatico){
+      docXml=docXml.replace(new RegExp('<w:tr\\b[^>]*>[\\s\\S]*?MATERIAL PARADID[\\s\\S]*?<\/w:tr>',''),'');
+    } else {
+      replaceXX('MATERIAL PARADID',p.lapbook.qtd+p.livros.qtd,p.lapbook.qtd>0?S.prices.lapbook_ei:S.prices.livro_ai);
+    }
+
+    // Formação
+    var fIdx=docXml.indexOf('FORMA\u00c7\u00c3O DE EDUCADORES');
+    if(fIdx>=0){
+      var fSeg=docXml.slice(fIdx,fIdx+2000);
+      fSeg=fSeg.replace(/<w:t>xx<\/w:t>/,'<w:t>'+esc(fmtQ(horasForm))+'</w:t>');
+      fSeg=fSeg.replace(/<w:t>R\$ xxx,xx<\/w:t>/,'<w:t>'+esc(fmtR(S.prices.formacao))+'</w:t>');
+      fSeg=fSeg.replace(/xxxxx,xx/,esc(fmt(totForm)));
+      docXml=docXml.slice(0,fIdx)+fSeg+docXml.slice(fIdx+2000);
+    }
+
+    docXml=docXml.replace('XXXX,XX ',esc(fmt(grandTotal))+' ');
+    docXml=docXml.replace('EXTENSO',esc(fmtR(grandTotal)));
+
+    zip.file('word/document.xml',docXml);
+    var blob=await zip.generateAsync({type:'blob',compression:'DEFLATE'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;
+    a.download='Proposta_Nexis_'+S.uf+'_'+new Date().toISOString().slice(0,10)+'.docx';
+    a.click();
+    URL.revokeObjectURL(url);
+  } catch(err){
+    console.error(err);
+    alert('Erro ao gerar proposta: '+err.message);
+  } finally {
+    if(btn){btn.innerHTML=orig;btn.disabled=false;}
+  }
+}
+
 </script>
 </body>
 </html>
