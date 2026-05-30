@@ -720,40 +720,42 @@ function ir4(){
   buildStep4(); markDone(3); activateCard(4);
 }
 
+function optItem(key,label,icon){
+  var sel=S.opts[key]?'selected':'';
+  var chk=S.opts[key]?'✓':'';
+  return '<div class="opt-item '+sel+'" id="opt-'+key+'" data-key="'+key+'">'+
+    '<div class="opt-check" id="ochk-'+key+'">'+chk+'</div>'+
+    '<span class="opt-label">'+label+'</span></div>';
+}
+
 function buildStep3(){
   var h='';
   if(S.segs.ei){
     h+='<div class="opt-section"><div class="opt-section-title"><span class="material-icons-outlined" style="font-size:16px">child_care</span>Educação Infantil</div>';
-    h+='<div class="opt-item '+(S.opts.lapbook_ei?'selected':'')+'" id="opt-lapbook_ei" onclick="toggleOpt(\'lapbook_ei\')">';
-    h+='<div class="opt-check" id="ochk-lapbook_ei">'+(S.opts.lapbook_ei?'✓':'')+'</div>';
-    h+='<span class="opt-label">Lapbook para G4 e G5</span></div></div>';
+    h+=optItem('lapbook_ei','Lapbook para G4 e G5');
+    h+='</div>';
   }
   if(S.segs.ai){
     h+='<div class="opt-section"><div class="opt-section-title"><span class="material-icons-outlined" style="font-size:16px">menu_book</span>Anos Iniciais</div>';
-    h+='<div class="opt-item '+(S.opts.fll_ai?'selected':'')+'" id="opt-fll_ai" onclick="toggleOpt(\'fll_ai\')">';
-    h+='<div class="opt-check" id="ochk-fll_ai">'+(S.opts.fll_ai?'✓':'')+'</div>';
-    h+='<span class="opt-label">FIRST LEGO League — Anos Iniciais</span></div>';
-    h+='<div class="opt-item '+(S.opts.lapbook_ai1?'selected':'')+'" id="opt-lapbook_ai1" onclick="toggleOpt(\'lapbook_ai1\')">';
-    h+='<div class="opt-check" id="ochk-lapbook_ai1">'+(S.opts.lapbook_ai1?'✓':'')+'</div>';
-    h+='<span class="opt-label">Lapbook para o 1º Ano</span></div>';
-    h+='<div class="opt-item '+(S.opts.livro_ai?'selected':'')+'" id="opt-livro_ai" onclick="toggleOpt(\'livro_ai\')">';
-    h+='<div class="opt-check" id="ochk-livro_ai">'+(S.opts.livro_ai?'✓':'')+'</div>';
-    h+='<span class="opt-label">Livros para 2º ao 5º Ano</span></div></div>';
+    h+=optItem('fll_ai','FIRST LEGO League — Anos Iniciais');
+    h+=optItem('lapbook_ai1','Lapbook para o 1º Ano');
+    h+=optItem('livro_ai','Livros para 2º ao 5º Ano');
+    h+='</div>';
   }
   if(S.segs.af){
     h+='<div class="opt-section"><div class="opt-section-title"><span class="material-icons-outlined" style="font-size:16px">science</span>Anos Finais</div>';
-    h+='<div class="opt-item '+(S.opts.fll_af?'selected':'')+'" id="opt-fll_af" onclick="toggleOpt(\'fll_af\')">';
-    h+='<div class="opt-check" id="ochk-fll_af">'+(S.opts.fll_af?'✓':'')+'</div>';
-    h+='<span class="opt-label">FIRST LEGO League — Anos Finais</span></div>';
-    h+='<div class="opt-item '+(S.opts.livro_af?'selected':'')+'" id="opt-livro_af" onclick="toggleOpt(\'livro_af\')">';
-    h+='<div class="opt-check" id="ochk-livro_af">'+(S.opts.livro_af?'✓':'')+'</div>';
-    h+='<span class="opt-label">Livros para 6º ao 9º Ano</span></div></div>';
+    h+=optItem('fll_af','FIRST LEGO League — Anos Finais');
+    h+=optItem('livro_af','Livros para 6º ao 9º Ano');
+    h+='</div>';
   }
   h+='<div class="btn-row">';
   h+='<button class="btn-outlined" onclick="voltar(2)"><span class="material-icons-outlined">arrow_back</span> Voltar</button>';
   h+='<button class="btn-filled" onclick="ir4()">Próximo <span class="material-icons-outlined">arrow_forward</span></button>';
   h+='</div>';
   document.getElementById('body3').innerHTML=h;
+  document.querySelectorAll('#body3 .opt-item').forEach(function(el){
+    el.addEventListener('click',function(){toggleOpt(this.getAttribute('data-key'));});
+  });
 }
 
 var DEFAULT_PRICES = {
