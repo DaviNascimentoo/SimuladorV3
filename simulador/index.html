@@ -1049,17 +1049,19 @@ async function baixarProposta(evt){
   if(btn){btn.innerHTML='<span class="material-icons-outlined">hourglass_top</span> Gerando...';btn.disabled=true;}
   try{
     var resp=await fetch('data/proposta_template.docx');
-    if(!resp.ok) throw new Error('Template não encontrado. Verifique se proposta_template.docx está na pasta data/');
+    if(!resp.ok) throw new Error('Template não encontrado na pasta data/');
     var buf=await resp.arrayBuffer();
     var zip=await JSZip.loadAsync(buf);
     var xml=await zip.file('word/document.xml').async('string');
 
     function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-    function fmtN(n){return Number(n||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
-    function fmtR(n){return 'R$ '+fmtN(n);}
+    function fmtBR(n){
+      return Number(n||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+    }
+    function fmtR(n){return 'R$ '+fmtBR(n);}
     function fmtQ(n){return Math.round(n||0).toLocaleString('pt-BR');}
 
-    // Find full row (w:tr) containing marker and return {start,end} positions
+    // Find full <w:tr> row containing marker
     function rowBounds(marker){
       var idx=xml.indexOf(marker); if(idx<0) return null;
       var s=xml.lastIndexOf('<w:tr ',idx); if(s<0) s=xml.lastIndexOf('<w:tr>',idx);
@@ -1067,55 +1069,45 @@ async function baixarProposta(evt){
       return {start:s,end:e};
     }
 
-    // Fill qtd, unit, total in a row — uses full row as window (no size limit)
+    // Fill product row:
+    // - Qtd:   single <w:t>XX</w:t>
+    // - Unit:  TWO w:t elements: <w:t...>R$ </w:t><w:t>XXXX,XX</w:t>  -> replace only XXXX,XX
+    // - Total: TWO w:t elements: <w:t>R$ </w:t><w:t>XXX,XX</w:t>   -> replace only XXX,XX
     function fillRow(marker,qtd,unit){
       var tot=qtd*unit;
       var b=rowBounds(marker); if(!b) return;
       var seg=xml.slice(b.start,b.end);
       seg=seg.replace('<w:t>XX</w:t>','<w:t>'+esc(fmtQ(qtd))+'</w:t>');
-      seg=seg.replace('<w:t>R$ XXXX,XX</w:t>','<w:t>'+esc(fmtR(unit))+'</w:t>');
-      seg=seg.replace('<w:t>R$ XXX,XX</w:t>','<w:t>'+esc(fmtR(tot))+'</w:t>');
+      seg=seg.replace('<w:t>XXXX,XX</w:t>','<w:t>'+esc(fmtBR(unit))+'</w:t>');
+      seg=seg.replace('<w:t>XXX,XX</w:t>','<w:t>'+esc(fmtBR(tot))+'</w:t>');
       xml=xml.slice(0,b.start)+seg+xml.slice(b.end);
     }
 
-    // Fill valor total row (only one cell with placeholder)
-    function fillTotalRow(searchText,total){
-      var idx=xml.indexOf(searchText); if(idx<0) return;
-      var s=xml.lastIndexOf('<w:tr ',idx); if(s<0) s=xml.lastIndexOf('<w:tr>',idx);
-      var e=xml.indexOf('</w:tr>',idx)+7;
-      var seg=xml.slice(s,e);
-      seg=seg.replace(/<w:t>R\$ xxxxx,xx<\/w:t>/,'<w:t>'+esc(fmtR(total))+'</w:t>');
-      xml=xml.slice(0,s)+seg+xml.slice(e);
+    // Fill FLL row (qtd placeholder is '02' not 'XX')
+    function fillFll(marker,qtd,unit){
+      var tot=qtd*unit;
+      var b=rowBounds(marker); if(!b) return;
+      var seg=xml.slice(b.start,b.end);
+      seg=seg.replace('<w:t>02</w:t>','<w:t>'+esc(fmtQ(qtd))+'</w:t>');
+      seg=seg.replace('<w:t>XXXX,XX</w:t>','<w:t>'+esc(fmtBR(unit))+'</w:t>');
+      seg=seg.replace('<w:t>XXX,XX</w:t>','<w:t>'+esc(fmtBR(tot))+'</w:t>');
+      xml=xml.slice(0,b.start)+seg+xml.slice(b.end);
     }
 
-    // Remove a row by marker
+    // Remove a row entirely
     function removeRow(marker){
       var b=rowBounds(marker); if(!b) return;
       xml=xml.slice(0,b.start)+xml.slice(b.end);
     }
 
-    // Remove block between two unique paraId anchors
-    function removeBlock(startParaId, endParaId){
-      var startAnchor='paraId="'+startParaId+'"';
-      var endAnchor='paraId="'+endParaId+'"';
-      var s=xml.indexOf(startAnchor);
-      var e=xml.indexOf(endAnchor);
+    // Remove block between two unique paraId anchors (inclusive of start, exclusive of end)
+    function removeBlock(startId,endId){
+      var s=xml.indexOf('paraId="'+startId+'"');
+      var e=xml.indexOf('paraId="'+endId+'"');
       if(s<0||e<0||s>=e) return;
-      var ps=xml.lastIndexOf('<w:p ',s);    // start of first paragraph to remove
-      var pe=xml.lastIndexOf('<w:p ',e);    // start of first paragraph to KEEP
-      xml=xml.slice(0,ps)+xml.slice(pe);
-    }
-
-    // Remove block from paraId anchor to after the next </w:tbl>
-    function removeBlockToTableEnd(startParaId){
-      var startAnchor='paraId="'+startParaId+'"';
-      var s=xml.indexOf(startAnchor);
-      if(s<0) return;
       var ps=xml.lastIndexOf('<w:p ',s);
-      // Find end of containing table (the year table)
-      var tableEnd=xml.indexOf('</w:tbl>',s)+8;
-      if(tableEnd<8) return;
-      xml=xml.slice(0,ps)+xml.slice(tableEnd);
+      var pe=xml.lastIndexOf('<w:p ',e);
+      xml=xml.slice(0,ps)+xml.slice(pe);
     }
 
     // Get totals from agg
@@ -1128,35 +1120,32 @@ async function baixarProposta(evt){
       return {qtd:0,unit:0};
     }
 
-    // Nexis
     var nexisLic=0;
     Object.entries(agg).forEach(function(e){if(e[0].indexOf('Nexis')>=0)nexisLic+=e[1].qtd;});
     var nexisUnit=S.prices.nexis||99;
     var nexisTot=nexisLic*nexisUnit;
 
-    // Products
     var p={
       explorador:   getQ('Exploradores'),
       lego_duplo:   getQ('LEGO Duplo'),
       mais_mat:     getQ('Mais Matem'),
       comp_ia8:     getQ('IA 8+'),
       comp_ia11:    getQ('IA 11+'),
-      microbit:     {qtd:(getQ('micro:bit (AI)').qtd||0)+(getQ('micro:bit (AF)').qtd||0), unit:S.prices.microbit_ai||350},
-      fll_tapete:   {qtd:(getQ('Tapete (AI)').qtd||0)+(getQ('Tapete (AF)').qtd||0), unit:S.prices.fll_tapete_ai||4130},
+      microbit:     {qtd:(getQ('micro:bit (AI)').qtd||0)+(getQ('micro:bit (AF)').qtd||0),unit:S.prices.microbit_ai||350},
+      fll_tapete:   {qtd:(getQ('Tapete (AI)').qtd||0)+(getQ('Tapete (AF)').qtd||0),unit:S.prices.fll_tapete_ai||4130},
       fll_motor:    getQ('Motor Simples'),
       fll_ctrl:     getQ('Controlador'),
       fll_cartao:   getQ('Cart\u00e3o'),
-      multicharger: {qtd:(getQ('Multicharger (AI)').qtd||0)+(getQ('Multicharger (AF)').qtd||0), unit:S.prices.multicharger_ai||3000},
-      cabo:         {qtd:(getQ('Cabo Multicharger (AI)').qtd||0)+(getQ('Cabo Multicharger (AF)').qtd||0), unit:S.prices.cabo_multicharger_ai||200},
-      lapbook:      {qtd:(getQ('Lapbook G4').qtd||0)+(getQ('Lapbook 1\u00ba').qtd||0), unit:S.prices.lapbook_ei||99},
-      livros:       {qtd:(getQ('Livro 2\u00ba').qtd||0)+(getQ('Livro 6\u00ba').qtd||0), unit:S.prices.livro_ai||150}
+      multicharger: {qtd:(getQ('Multicharger (AI)').qtd||0)+(getQ('Multicharger (AF)').qtd||0),unit:S.prices.multicharger_ai||3000},
+      cabo:         {qtd:(getQ('Cabo Multicharger (AI)').qtd||0)+(getQ('Cabo Multicharger (AF)').qtd||0),unit:S.prices.cabo_multicharger_ai||200},
+      lapbook:      {qtd:(getQ('Lapbook G4').qtd||0)+(getQ('Lapbook 1\u00ba').qtd||0),unit:S.prices.lapbook_ei||99},
+      livros:       {qtd:(getQ('Livro 2\u00ba').qtd||0)+(getQ('Livro 6\u00ba').qtd||0),unit:S.prices.livro_ai||150}
     };
 
     var horasForm=0;
     Object.entries(agg).forEach(function(e){if(e[0].indexOf('Forma\u00e7\u00e3o')>=0)horasForm+=e[1].qtd;});
     var formUnit=S.prices.formacao||623.75;
     var totForm=horasForm*formUnit;
-
     var grandTotal=nexisTot+totForm;
     Object.values(p).forEach(function(x){grandTotal+=(x.qtd||0)*(x.unit||0);});
 
@@ -1164,81 +1153,68 @@ async function baixarProposta(evt){
     var tem_paradidatico=(p.lapbook.qtd>0||p.livros.qtd>0);
 
     // ===== 1.1 Nexis =====
+    // Row 2: xxxxx=qtd, XX meses, R$ xxx,xx=unit (single w:t), R$ xxxxx,xx=total (single w:t)
     xml=xml.replace(' xxxxx',' '+esc(fmtQ(nexisLic)));
     xml=xml.replace('XX meses','12 meses');
     xml=xml.replace('R$ xxx,xx',esc(fmtR(nexisUnit)));
-    // R$ xxxxx,xx appears 3 times: row2col5 (nexis unit*qty), row3 (nexis total), row24 (services total)
+    // R$ xxxxx,xx appears 3x: row2col5, row3(nexis total), row24(services total)
     var xxxCount=0;
     xml=xml.replace(/R\$ xxxxx,xx/g,function(m){
       xxxCount++;
-      if(xxxCount===1) return esc(fmtR(nexisTot)); // row 2 col5
-      if(xxxCount===2) return esc(fmtR(nexisTot)); // row 3 nexis VALOR TOTAL
-      if(xxxCount===3) return esc(fmtR(totForm));  // row 24 services VALOR TOTAL (formação only)
+      if(xxxCount===1) return esc(fmtR(nexisTot));
+      if(xxxCount===2) return esc(fmtR(nexisTot));
+      if(xxxCount===3) return esc(fmtR(totForm));
       return m;
     });
+    // Row 3 (nexis VALOR TOTAL): split w:t runs 'R$ xxxxx' + ',' + 'xx'
+    xml=xml.replace(/<w:t>R\\$ xxxxx<\/w:t>[\\s\\S]{0,400}<w:t>,<\/w:t>[\\s\\S]{0,200}<w:t>xx<\/w:t>/,
+      '<w:t>'+esc(fmtBR(nexisTot))+'</w:t>');
 
     // ===== 1.2 Products =====
-    fillRow('CONJUNTO EXPLORADORES', p.explorador.qtd, p.explorador.unit);
-    fillRow('CONJUNTO LEGO\u00ae DUPLO', p.lego_duplo.qtd, p.lego_duplo.unit);
-    fillRow('45210', p.mais_mat.qtd, p.mais_mat.unit);
-    fillRow('45521', p.comp_ia8.qtd, p.comp_ia8.unit);
-    fillRow('45522', p.comp_ia11.qtd, p.comp_ia11.unit);
-    fillRow('PLACA DE PROGRAMA', p.microbit.qtd, p.microbit.unit);
-    fillRow('CARREGADOR MULTI CHARGER', p.multicharger.qtd, p.multicharger.unit);
-    fillRow('CABO DE CONEX', p.cabo.qtd, p.cabo.unit);
+    fillRow('CONJUNTO EXPLORADORES',p.explorador.qtd,p.explorador.unit);
+    fillRow('CONJUNTO LEGO\u00ae DUPLO',p.lego_duplo.qtd,p.lego_duplo.unit);
+    fillRow('45210',p.mais_mat.qtd,p.mais_mat.unit);
+    fillRow('45521',p.comp_ia8.qtd,p.comp_ia8.unit);
+    fillRow('45522',p.comp_ia11.qtd,p.comp_ia11.unit);
+    fillRow('PLACA DE PROGRAMA',p.microbit.qtd,p.microbit.unit);
+    fillRow('CARREGADOR MULTI CHARGER',p.multicharger.qtd,p.multicharger.unit);
+    fillRow('CABO DE CONEX',p.cabo.qtd,p.cabo.unit);
 
     if(tem_fll){
-      fillRow('45834', p.fll_tapete.qtd, p.fll_tapete.unit);
-      function fillFll(marker,qtd,unit){
-        var tot=qtd*unit;
-        var b=rowBounds(marker); if(!b) return;
-        var seg=xml.slice(b.start,b.end);
-        seg=seg.replace('<w:t>02</w:t>','<w:t>'+esc(fmtQ(qtd))+'</w:t>');
-        seg=seg.replace('<w:t>R$ XXXX,XX</w:t>','<w:t>'+esc(fmtR(unit))+'</w:t>');
-        seg=seg.replace('<w:t>R$ XXX,XX</w:t>','<w:t>'+esc(fmtR(tot))+'</w:t>');
-        xml=xml.slice(0,b.start)+seg+xml.slice(b.end);
-      }
-      fillFll('MOTORES SIMPLES', p.fll_motor.qtd, p.fll_motor.unit);
-      fillFll('CONTROLADORES', p.fll_ctrl.qtd, p.fll_ctrl.unit);
-      fillFll('PACOTES DE CART', p.fll_cartao.qtd, p.fll_cartao.unit);
+      fillRow('45834',p.fll_tapete.qtd,p.fll_tapete.unit);
+      fillFll('MOTORES SIMPLES',p.fll_motor.qtd,p.fll_motor.unit);
+      fillFll('CONTROLADORES',p.fll_ctrl.qtd,p.fll_ctrl.unit);
+      fillFll('PACOTES DE CART',p.fll_cartao.qtd,p.fll_cartao.unit);
     } else {
       removeRow('PACOTES DE CART');
       removeRow('CONTROLADORES');
       removeRow('MOTORES SIMPLES');
       removeRow('45834');
-      // Remove FLL section in annex (pages 18-20)
-      removeBlock('5714F0E5','38E01491');
+      removeBlock('5714F0E5','38E01491'); // Remove FLL section in annex
     }
 
     if(tem_paradidatico){
-      fillRow('MATERIAL PARADID', p.lapbook.qtd+p.livros.qtd, p.lapbook.qtd>0?p.lapbook.unit:p.livros.unit);
+      fillRow('MATERIAL PARADID',p.lapbook.qtd+p.livros.qtd,p.lapbook.qtd>0?p.lapbook.unit:p.livros.unit);
     } else {
       removeRow('MATERIAL PARADID');
-      // Remove paradidatico section in annex
-      // Remove everything from paradidatico section start to after the year table
-      // paraId 154E05F2 = first paragraph after the paradidatico section
-      removeBlock('38E01491','154E05F2');
+      removeBlock('38E01491','154E05F2'); // Remove paradidatico section in annex
     }
 
-    // ===== 1.2 Valor Total =====
-    var tot12=0;
-    Object.values(p).forEach(function(x){tot12+=(x.qtd||0)*(x.unit||0);});
-    // Row 19 is 1.3 header (no total row for 1.2 in template)
-    // If there's no separate total row, skip
-
     // ===== 1.3 Formação =====
+    // Row 22: xx=horas, R$ xxx,xx=unit (single), R$ + ' ' + xxxxx,xx=total (split in 3 w:t)
     var fb=rowBounds('FORMA\u00c7\u00c3O DE EDUCADORES');
     if(fb){
       var fseg=xml.slice(fb.start,fb.end);
-      fseg=fseg.replace(/<w:t>xx<\/w:t>/,'<w:t>'+esc(fmtQ(horasForm))+'</w:t>');
-      fseg=fseg.replace(/<w:t>R\$ xxx,xx<\/w:t>/,'<w:t>'+esc(fmtR(formUnit))+'</w:t>');
-      fseg=fseg.replace(/<w:t>xxxxx,xx<\/w:t>/,'<w:t>'+esc(fmtN(totForm))+'</w:t>');
+      fseg=fseg.replace('<w:t>xx</w:t>','<w:t>'+esc(fmtQ(horasForm))+'</w:t>');
+      fseg=fseg.replace('<w:t>R$ xxx,xx</w:t>','<w:t>'+esc(fmtR(formUnit))+'</w:t>');
+      fseg=fseg.replace('<w:t>xxxxx,xx</w:t>','<w:t>'+esc(fmtBR(totForm))+'</w:t>');
       xml=xml.slice(0,fb.start)+fseg+xml.slice(fb.end);
     }
 
     // ===== Total Geral =====
-    xml=xml.replace('XXXX,XX ',esc(fmtN(grandTotal))+' ');
-    xml=xml.replace('EXTENSO',esc(fmtR(grandTotal)));
+    // Row 26: 'XXXX,XX ' and 'EXTENSO' are separate w:t elements
+    xml=xml.replace('<w:t>XXXX,XX </w:t>','<w:t>'+esc(fmtBR(grandTotal))+' </w:t>');
+    xml=xml.replace('<w:t>EXTENSO</w:t>','<w:t>'+esc(fmtR(grandTotal))+'</w:t>');
 
     zip.file('word/document.xml',xml);
     var blob=await zip.generateAsync({type:'blob',compression:'DEFLATE'});
