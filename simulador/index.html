@@ -1049,13 +1049,49 @@ async function baixarProposta(evt){
   if(btn){btn.innerHTML='<span class="material-icons-outlined">hourglass_top</span> Gerando...';btn.disabled=true;}
   try{
     var resp=await fetch('data/proposta_template.docx');
-    if(!resp.ok) throw new Error('Template não encontrado');
-    var templateBuf=await resp.arrayBuffer();
-    var zip=await JSZip.loadAsync(templateBuf);
-    var docXml=await zip.file('word/document.xml').async('string');
+    if(!resp.ok) throw new Error('Template não encontrado. Verifique se proposta_template.docx está na pasta data/');
+    var buf=await resp.arrayBuffer();
+    var zip=await JSZip.loadAsync(buf);
+    var xml=await zip.file('word/document.xml').async('string');
 
+    // Helpers
     function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+    function fmtN(n){return Number(n||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+    function fmtR(n){return 'R$ '+fmtN(n);}
+    function fmtQ(n){return Math.round(n||0).toLocaleString('pt-BR');}
 
+    // Get row boundaries by unique marker text
+    // Returns {start, end} indices in xml string
+    function rowBounds(marker){
+      var idx=xml.indexOf(marker);
+      if(idx<0) return null;
+      var rowStart=xml.lastIndexOf('<w:tr ',idx);
+      if(rowStart<0) rowStart=xml.lastIndexOf('<w:tr>',idx);
+      var rowEnd=xml.indexOf('</w:tr>',idx)+7;
+      return {start:rowStart,end:rowEnd};
+    }
+
+    // Fill qtd, unit, total in a row segment
+    function fillRow(marker,qtd,unit){
+      var tot=qtd*unit;
+      var b=rowBounds(marker);
+      if(!b) return;
+      var seg=xml.slice(b.start,b.end);
+      seg=seg.replace(/<w:t>XX<\/w:t>/,'<w:t>'+esc(fmtQ(qtd))+'</w:t>');
+      seg=seg.replace(/<w:t>R\$ XXXX,XX<\/w:t>/,'<w:t>'+esc(fmtR(unit))+'</w:t>');
+      // Total cell uses non-breaking space: R$\xa0XXX,XX
+      seg=seg.replace(/<w:t>R\$\u00a0XXX,XX<\/w:t>/,'<w:t>'+esc(fmtR(tot))+'</w:t>');
+      xml=xml.slice(0,b.start)+seg+xml.slice(b.end);
+    }
+
+    // Remove a row entirely by marker
+    function removeRow(marker){
+      var b=rowBounds(marker);
+      if(!b) return;
+      xml=xml.slice(0,b.start)+xml.slice(b.end);
+    }
+
+    // Get aggregated totals
     function getQ(names){
       var arr=Array.isArray(names)?names:[names];
       for(var i=0;i<arr.length;i++){
@@ -1065,96 +1101,108 @@ async function baixarProposta(evt){
       return {qtd:0,unit:0};
     }
 
+    // Nexis
     var nexisLic=0;
-    Object.entries(agg).forEach(function(en){if(en[0].indexOf('Nexis')>=0)nexisLic+=en[1].qtd;});
-    var nexisUnit=S.prices.nexis, nexisTot=nexisLic*nexisUnit;
+    Object.entries(agg).forEach(function(e){if(e[0].indexOf('Nexis')>=0)nexisLic+=e[1].qtd;});
+    var nexisUnit=S.prices.nexis||99;
+    var nexisTot=nexisLic*nexisUnit;
 
+    // Products
     var p={
-      explorador:getQ('Exploradores'), lego_duplo:getQ('LEGO Duplo'),
-      mais_mat:getQ('Mais Matemática'), comp_ia8:getQ('IA 8+'), comp_ia11:getQ('IA 11+'),
-      microbit:{qtd:(getQ('micro:bit (AI)').qtd||0)+(getQ('micro:bit (AF)').qtd||0),unit:S.prices.microbit_ai},
-      fll_tapete:{qtd:(getQ('Tapete (AI)').qtd||0)+(getQ('Tapete (AF)').qtd||0),unit:S.prices.fll_tapete_ai},
-      fll_motor:getQ('Motor Simples'), fll_ctrl:getQ('Controlador'), fll_cartao:getQ('Cartão'),
-      multicharger:{qtd:(getQ('Multicharger (AI)').qtd||0)+(getQ('Multicharger (AF)').qtd||0),unit:S.prices.multicharger_ai},
-      cabo:{qtd:(getQ('Cabo Multicharger (AI)').qtd||0)+(getQ('Cabo Multicharger (AF)').qtd||0),unit:S.prices.cabo_multicharger_ai},
-      lapbook:{qtd:(getQ('Lapbook G4').qtd||0)+(getQ('Lapbook 1º').qtd||0),unit:S.prices.lapbook_ei},
-      livros:{qtd:(getQ('Livro 2º').qtd||0)+(getQ('Livro 6º').qtd||0),unit:S.prices.livro_ai}
+      explorador:   getQ('Exploradores'),
+      lego_duplo:   getQ('LEGO Duplo'),
+      mais_mat:     getQ('Mais Matemática'),
+      comp_ia8:     getQ('IA 8+'),
+      comp_ia11:    getQ('IA 11+'),
+      microbit:     {qtd:(getQ('micro:bit (AI)').qtd||0)+(getQ('micro:bit (AF)').qtd||0), unit:S.prices.microbit_ai||350},
+      fll_tapete:   {qtd:(getQ('Tapete (AI)').qtd||0)+(getQ('Tapete (AF)').qtd||0), unit:S.prices.fll_tapete_ai||4130},
+      fll_motor:    getQ('Motor Simples'),
+      fll_ctrl:     getQ('Controlador'),
+      fll_cartao:   getQ('Cartão'),
+      multicharger: {qtd:(getQ('Multicharger (AI)').qtd||0)+(getQ('Multicharger (AF)').qtd||0), unit:S.prices.multicharger_ai||3000},
+      cabo:         {qtd:(getQ('Cabo Multicharger (AI)').qtd||0)+(getQ('Cabo Multicharger (AF)').qtd||0), unit:S.prices.cabo_multicharger_ai||200},
+      lapbook:      {qtd:(getQ('Lapbook G4').qtd||0)+(getQ('Lapbook 1\u00ba').qtd||0), unit:S.prices.lapbook_ei||99},
+      livros:       {qtd:(getQ('Livro 2\u00ba').qtd||0)+(getQ('Livro 6\u00ba').qtd||0), unit:S.prices.livro_ai||150}
     };
 
     var horasForm=0;
-    Object.entries(agg).forEach(function(en){if(en[0].indexOf('Formação')>=0)horasForm+=en[1].qtd;});
-    var totForm=horasForm*S.prices.formacao;
+    Object.entries(agg).forEach(function(e){if(e[0].indexOf('Forma\u00e7\u00e3o')>=0)horasForm+=e[1].qtd;});
+    var totForm=horasForm*(S.prices.formacao||623.75);
+
     var grandTotal=nexisTot+totForm;
-    Object.values(p).forEach(function(x){grandTotal+=x.qtd*x.unit;});
+    Object.values(p).forEach(function(x){grandTotal+=(x.qtd||0)*(x.unit||0);});
 
     var tem_fll=p.fll_tapete.qtd>0;
-    var tem_paradidatico=(p.lapbook.qtd>0||p.livros.qtd>0);
+    var tem_lapbook=p.lapbook.qtd>0;
+    var tem_livros=p.livros.qtd>0;
+    var tem_paradidatico=tem_lapbook||tem_livros;
 
-    // 1.1 Nexis
-    docXml=docXml.replace(' xxxxx',' '+esc(fmtQ(nexisLic)));
-    docXml=docXml.replace('XX meses','12 meses');
-    docXml=docXml.replace('R$ xxx,xx',esc(fmtR(nexisUnit)));
-    docXml=docXml.replace('R$ xxxxx,xx',esc(fmtR(nexisTot)));
-    docXml=docXml.replace('R$ xxxxx,xx',esc(fmtR(nexisTot)));
+    // ===== 1.1 Nexis =====
+    xml=xml.replace(' xxxxx',' '+esc(fmtQ(nexisLic)));
+    xml=xml.replace('XX meses','12 meses');
+    xml=xml.replace('R$ xxx,xx',esc(fmtR(nexisUnit)));
+    // Two occurrences of R$ xxxxx,xx: row 2 (unit) and row 3 (total)
+    xml=xml.replace('R$ xxxxx,xx',esc(fmtR(nexisTot)));
+    xml=xml.replace('R$ xxxxx,xx',esc(fmtR(nexisTot)));
 
-    function replaceXX(marker,qtd,unit){
-      var tot=qtd*unit;
-      var idx=docXml.indexOf(marker); if(idx<0)return;
-      var seg=docXml.slice(idx,idx+2000);
-      seg=seg.replace(/<w:t>XX<\/w:t>/,'<w:t>'+esc(fmtQ(qtd))+'</w:t>');
-      seg=seg.replace(/<w:t>R\$ XXXX,XX<\/w:t>/,'<w:t>'+esc(fmtR(unit))+'</w:t>');
-      seg=seg.replace(/<w:t>R\$\u00a0XXX,XX<\/w:t>/,'<w:t>'+esc(fmtR(tot))+'</w:t>');
-      docXml=docXml.slice(0,idx)+seg+docXml.slice(idx+2000);
-    }
+    // ===== 1.2 Products =====
+    fillRow('CONJUNTO EXPLORADORES', p.explorador.qtd, p.explorador.unit);
+    fillRow('CONJUNTO LEGO\u00ae DUPLO', p.lego_duplo.qtd, p.lego_duplo.unit);
+    fillRow('45210', p.mais_mat.qtd, p.mais_mat.unit);
+    fillRow('45521', p.comp_ia8.qtd, p.comp_ia8.unit);
+    fillRow('45522', p.comp_ia11.qtd, p.comp_ia11.unit);
+    fillRow('PLACA DE PROGRAMA', p.microbit.qtd, p.microbit.unit);
+    fillRow('CARREGADOR MULTI CHARGER', p.multicharger.qtd, p.multicharger.unit);
+    fillRow('CABO DE CONEX', p.cabo.qtd, p.cabo.unit);
 
-    replaceXX('CONJUNTO EXPLORADORES',p.explorador.qtd,p.explorador.unit);
-    replaceXX('CONJUNTO LEGO\u00ae DUPLO',p.lego_duplo.qtd,p.lego_duplo.unit);
-    replaceXX('45210',p.mais_mat.qtd,p.mais_mat.unit);
-    replaceXX('45521',p.comp_ia8.qtd,p.comp_ia8.unit);
-    replaceXX('45522',p.comp_ia11.qtd,p.comp_ia11.unit);
-    replaceXX('PLACA DE PROGRAMA',p.microbit.qtd,p.microbit.unit);
-    replaceXX('CARREGADOR MULTI CHARGER',p.multicharger.qtd,p.multicharger.unit);
-    replaceXX('CABO DE CONEX',p.cabo.qtd,p.cabo.unit);
-
+    // FLL rows
     if(tem_fll){
-      replaceXX('45834',p.fll_tapete.qtd,p.fll_tapete.unit);
-      function patch02(marker,qtd,unit){
-        var tot=qtd*unit; var idx=docXml.indexOf(marker); if(idx<0)return;
-        var seg=docXml.slice(idx,idx+2000);
+      fillRow('45834', p.fll_tapete.qtd, p.fll_tapete.unit);
+      // FLL detail rows use '02' as qtd placeholder
+      function fillFllRow(marker,qtd,unit){
+        var tot=qtd*unit;
+        var b=rowBounds(marker); if(!b) return;
+        var seg=xml.slice(b.start,b.end);
         seg=seg.replace(/<w:t>02<\/w:t>/,'<w:t>'+esc(fmtQ(qtd))+'</w:t>');
         seg=seg.replace(/<w:t>R\$ XXXX,XX<\/w:t>/,'<w:t>'+esc(fmtR(unit))+'</w:t>');
         seg=seg.replace(/<w:t>R\$\u00a0XXX,XX<\/w:t>/,'<w:t>'+esc(fmtR(tot))+'</w:t>');
-        docXml=docXml.slice(0,idx)+seg+docXml.slice(idx+2000);
+        xml=xml.slice(0,b.start)+seg+xml.slice(b.end);
       }
-      patch02('MOTORES SIMPLES',p.fll_motor.qtd,p.fll_motor.unit);
-      patch02('CONTROLADORES',p.fll_ctrl.qtd,p.fll_ctrl.unit);
-      patch02('PACOTES DE CART',p.fll_cartao.qtd,p.fll_cartao.unit);
+      fillFllRow('MOTORES SIMPLES', p.fll_motor.qtd, p.fll_motor.unit);
+      fillFllRow('CONTROLADORES', p.fll_ctrl.qtd, p.fll_ctrl.unit);
+      fillFllRow('PACOTES DE CART', p.fll_cartao.qtd, p.fll_cartao.unit);
     } else {
-      ['45834 &#x2013; FIRST','MOTORES SIMPLES','CONTROLADORES','PACOTES DE CART'].forEach(function(m){
-        docXml=docXml.replace(new RegExp('<w:tr\\b[^>]*>[\\s\\S]*?'+m.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'[\\s\\S]*?<\/w:tr>',''),'');
-      });
+      // Remove FLL rows in reverse order to keep positions valid
+      removeRow('PACOTES DE CART');
+      removeRow('CONTROLADORES');
+      removeRow('MOTORES SIMPLES');
+      removeRow('45834');
     }
 
-    if(!tem_paradidatico){
-      docXml=docXml.replace(new RegExp('<w:tr\\b[^>]*>[\\s\\S]*?MATERIAL PARADID[\\s\\S]*?<\/w:tr>',''),'');
+    // Paradidático
+    if(tem_paradidatico){
+      fillRow('MATERIAL PARADID', p.lapbook.qtd+p.livros.qtd, tem_lapbook?p.lapbook.unit:p.livros.unit);
     } else {
-      replaceXX('MATERIAL PARADID',p.lapbook.qtd+p.livros.qtd,p.lapbook.qtd>0?S.prices.lapbook_ei:S.prices.livro_ai);
+      removeRow('MATERIAL PARADID');
     }
 
-    // Formação
-    var fIdx=docXml.indexOf('FORMA\u00c7\u00c3O DE EDUCADORES');
-    if(fIdx>=0){
-      var fSeg=docXml.slice(fIdx,fIdx+2000);
-      fSeg=fSeg.replace(/<w:t>xx<\/w:t>/,'<w:t>'+esc(fmtQ(horasForm))+'</w:t>');
-      fSeg=fSeg.replace(/<w:t>R\$ xxx,xx<\/w:t>/,'<w:t>'+esc(fmtR(S.prices.formacao))+'</w:t>');
-      fSeg=fSeg.replace(/xxxxx,xx/,esc(fmt(totForm)));
-      docXml=docXml.slice(0,fIdx)+fSeg+docXml.slice(fIdx+2000);
+    // ===== 1.3 Formação =====
+    var fb=rowBounds('FORMA\u00c7\u00c3O DE EDUCADORES');
+    if(fb){
+      var fseg=xml.slice(fb.start,fb.end);
+      fseg=fseg.replace(/<w:t>xx<\/w:t>/,'<w:t>'+esc(fmtQ(horasForm))+'</w:t>');
+      fseg=fseg.replace(/<w:t>R\$ xxx,xx<\/w:t>/,'<w:t>'+esc(fmtR(S.prices.formacao||623.75))+'</w:t>');
+      // Total is split: 'R$' + ' ' + 'xxxxx,xx'
+      fseg=fseg.replace(/<w:t>xxxxx,xx<\/w:t>/,'<w:t>'+esc(fmtN(totForm))+'</w:t>');
+      xml=xml.slice(0,fb.start)+fseg+xml.slice(fb.end);
     }
 
-    docXml=docXml.replace('XXXX,XX ',esc(fmt(grandTotal))+' ');
-    docXml=docXml.replace('EXTENSO',esc(fmtR(grandTotal)));
+    // ===== Total Geral =====
+    xml=xml.replace('XXXX,XX ',esc(fmtN(grandTotal))+' ');
+    xml=xml.replace('EXTENSO',esc(fmtR(grandTotal)));
 
-    zip.file('word/document.xml',docXml);
+    // Save and download
+    zip.file('word/document.xml',xml);
     var blob=await zip.generateAsync({type:'blob',compression:'DEFLATE'});
     var url=URL.createObjectURL(blob);
     var a=document.createElement('a');
@@ -1162,10 +1210,11 @@ async function baixarProposta(evt){
     a.download='Proposta_Nexis_'+S.uf+'_'+new Date().toISOString().slice(0,10)+'.docx';
     a.click();
     URL.revokeObjectURL(url);
-  } catch(err){
+
+  }catch(err){
     console.error(err);
     alert('Erro ao gerar proposta: '+err.message);
-  } finally {
+  }finally{
     if(btn){btn.innerHTML=orig;btn.disabled=false;}
   }
 }
