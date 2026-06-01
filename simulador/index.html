@@ -1072,9 +1072,9 @@ async function baixarProposta(evt){
       var tot=qtd*unit;
       var b=rowBounds(marker); if(!b) return;
       var seg=xml.slice(b.start,b.end);
-      seg=seg.replace(/<w:t>XX<\/w:t>/,'<w:t>'+esc(fmtQ(qtd))+'</w:t>');
-      seg=seg.replace(/<w:t>R\$ XXXX,XX<\/w:t>/,'<w:t>'+esc(fmtR(unit))+'</w:t>');
-      seg=seg.replace(/<w:t>R\$\u00a0XXX,XX<\/w:t>/,'<w:t>'+esc(fmtR(tot))+'</w:t>');
+      seg=seg.replace('<w:t>XX</w:t>','<w:t>'+esc(fmtQ(qtd))+'</w:t>');
+      seg=seg.replace('<w:t>R$ XXXX,XX</w:t>','<w:t>'+esc(fmtR(unit))+'</w:t>');
+      seg=seg.replace('<w:t>R$ XXX,XX</w:t>','<w:t>'+esc(fmtR(tot))+'</w:t>');
       xml=xml.slice(0,b.start)+seg+xml.slice(b.end);
     }
 
@@ -1101,9 +1101,9 @@ async function baixarProposta(evt){
       var s=xml.indexOf(startAnchor);
       var e=xml.indexOf(endAnchor);
       if(s<0||e<0||s>=e) return;
-      // Go back to the actual <w:p start
-      var ps=xml.lastIndexOf('<w:p ',s);
-      xml=xml.slice(0,ps)+xml.slice(e);
+      var ps=xml.lastIndexOf('<w:p ',s);    // start of first paragraph to remove
+      var pe=xml.lastIndexOf('<w:p ',e);    // start of first paragraph to KEEP
+      xml=xml.slice(0,ps)+xml.slice(pe);
     }
 
     // Remove block from paraId anchor to after the next </w:tbl>
@@ -1167,8 +1167,15 @@ async function baixarProposta(evt){
     xml=xml.replace(' xxxxx',' '+esc(fmtQ(nexisLic)));
     xml=xml.replace('XX meses','12 meses');
     xml=xml.replace('R$ xxx,xx',esc(fmtR(nexisUnit)));
-    xml=xml.replace('R$ xxxxx,xx',esc(fmtR(nexisTot)));  // row 2 col5
-    fillTotalRow('VALOR TOTAL',nexisTot);   // row 3 - nexis total
+    // R$ xxxxx,xx appears 3 times: row2col5 (nexis unit*qty), row3 (nexis total), row24 (services total)
+    var xxxCount=0;
+    xml=xml.replace(/R\$ xxxxx,xx/g,function(m){
+      xxxCount++;
+      if(xxxCount===1) return esc(fmtR(nexisTot)); // row 2 col5
+      if(xxxCount===2) return esc(fmtR(nexisTot)); // row 3 nexis VALOR TOTAL
+      if(xxxCount===3) return esc(fmtR(totForm));  // row 24 services VALOR TOTAL (formação only)
+      return m;
+    });
 
     // ===== 1.2 Products =====
     fillRow('CONJUNTO EXPLORADORES', p.explorador.qtd, p.explorador.unit);
@@ -1186,9 +1193,9 @@ async function baixarProposta(evt){
         var tot=qtd*unit;
         var b=rowBounds(marker); if(!b) return;
         var seg=xml.slice(b.start,b.end);
-        seg=seg.replace(/<w:t>02<\/w:t>/,'<w:t>'+esc(fmtQ(qtd))+'</w:t>');
-        seg=seg.replace(/<w:t>R\$ XXXX,XX<\/w:t>/,'<w:t>'+esc(fmtR(unit))+'</w:t>');
-        seg=seg.replace(/<w:t>R\$\u00a0XXX,XX<\/w:t>/,'<w:t>'+esc(fmtR(tot))+'</w:t>');
+        seg=seg.replace('<w:t>02</w:t>','<w:t>'+esc(fmtQ(qtd))+'</w:t>');
+        seg=seg.replace('<w:t>R$ XXXX,XX</w:t>','<w:t>'+esc(fmtR(unit))+'</w:t>');
+        seg=seg.replace('<w:t>R$ XXX,XX</w:t>','<w:t>'+esc(fmtR(tot))+'</w:t>');
         xml=xml.slice(0,b.start)+seg+xml.slice(b.end);
       }
       fillFll('MOTORES SIMPLES', p.fll_motor.qtd, p.fll_motor.unit);
@@ -1208,7 +1215,9 @@ async function baixarProposta(evt){
     } else {
       removeRow('MATERIAL PARADID');
       // Remove paradidatico section in annex
-      removeBlockToTableEnd('38E01491');
+      // Remove everything from paradidatico section start to after the year table
+      // paraId 154E05F2 = first paragraph after the paradidatico section
+      removeBlock('38E01491','154E05F2');
     }
 
     // ===== 1.2 Valor Total =====
@@ -1226,16 +1235,6 @@ async function baixarProposta(evt){
       fseg=fseg.replace(/<w:t>xxxxx,xx<\/w:t>/,'<w:t>'+esc(fmtN(totForm))+'</w:t>');
       xml=xml.slice(0,fb.start)+fseg+xml.slice(fb.end);
     }
-
-    // ===== 1.3 Servicos Total =====
-    // Row 24: services VALOR TOTAL (second occurrence of 'VALOR TOTAL')
-    var servTot=totForm; // only formação is auto-filled; LEA and acompanhamento are manual
-    var valTotalOccurrences=0;
-    xml=xml.replace(/R\$ xxxxx,xx/g,function(match){
-      valTotalOccurrences++;
-      if(valTotalOccurrences===1) return esc(fmtR(servTot)); // row 24
-      return match;
-    });
 
     // ===== Total Geral =====
     xml=xml.replace('XXXX,XX ',esc(fmtN(grandTotal))+' ');
