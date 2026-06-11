@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simulador Nexis - Público</title>
+<title>Simulador Nexis</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -757,13 +757,28 @@ function buildStep3(){
 }
 
 var DEFAULT_PRICES = {
-  nexis:99, formacao:623.75,
-  explorador:300, lego_duplo:300, lapbook_ei:99,
-  mais_mat:300, comp_ia8:6765, lapbook_ai1:99, livro_ai:150,
-  fll_tapete_ai:4130, fll_motor_ai:549.33, fll_ctrl_ai:549.33, fll_cartao_ai:549.33,
-  microbit_ai:350, multicharger_ai:3000, cabo_multicharger_ai:200,
-  comp_ia11:8451, livro_af:150, fll_tapete_af:4130,
-  microbit_af:350, multicharger_af:3000, cabo_multicharger_af:200
+  nexis:9.40, // LICENÇA NEXIS POR ALUNO/ANO
+  formacao:623.75,
+  explorador:359.00, // 9203595 Exploradores de Máquinas
+  lego_duplo:610.00, // 9203677 - LEGO CX DE PEÇAS DELUXE - 10914
+  lapbook_ei:340.00, // LAPBOOK G4 E G5
+  mais_mat:253.00, // 9202605 - +MATEMÁTICA 1-2-CONJ. PRINC, (NAC) 45210
+  comp_ia8:6765.00, // 9203546 - LE CS& IA 8+ 45521
+  lapbook_ai1:340.00, // LAPBOOK 1o ANO
+  livro_ai:340.00, // LIVRO 2o AO 5o ANO
+  fll_tapete_ai:4130.00, // 9203645 - FLL 8+ 11+ 26.27 BIOGLOW - 45834
+  fll_motor_ai:755.00, // 9203655 - 45650 - LE SINGLE MOTOR SUB FLL
+  fll_ctrl_ai:447.00, // 9203656 - 45652 - LE CONTROLLER SUB FLL
+  fll_cartao_ai:349.00, // 9203666 - 45657 - LE CONNECTION CARDS PACK SUB FLL
+  microbit_ai:345.00, // 111767192 : PLACA BBC MICROBIT V2.2
+  multicharger_ai:2030.00, // 9203415 - LE MULTI-CHARGER 8 USB C - 45624
+  cabo_multicharger_ai:49.00, // 11234529 - CABO DE FORCA 2P+T 10 A C5 1.2M
+  comp_ia11:8451.00, // 9203547 - LE CS & IA 11+ 45522
+  livro_af:340.00, // LIVRO 6o AO 9o ANO
+  fll_tapete_af:4130.00, // 9203645 - FLL 8+ 11+ 26.27 BIOGLOW - 45834
+  microbit_af:345.00, // 111767192 : PLACA BBC MICROBIT V2.2
+  multicharger_af:2030.00, // 9203415 - LE MULTI-CHARGER 8 USB C - 45624
+  cabo_multicharger_af:49.00 // 11234529 - CABO DE FORCA 2P+T 10 A C5 1.2M
 };
 
 function pf(id,lbl){
@@ -776,33 +791,33 @@ function pf(id,lbl){
 
 function buildStep4(){
   var h='<div class="price-section"><div class="price-section-tag"><span class="material-icons-outlined" style="font-size:14px">settings</span>Itens Gerais</div>';
-  h+='<div class="grid2">'+pf('nexis','Licença Nexis por aluno/ano')+pf('formacao','Valor da hora de formação (24h/seg./escola)')+'</div></div>';
+  h+='<div class="grid2">'+pf('nexis','Licença Nexis por aluno/ano')+pf('formacao','Valor da hora de formação (24h/seg./escola)')+'</div></div>'; // LICENÇA NEXIS POR ALUNO/ANO
   if(S.segs.ei){
     h+='<div class="price-section"><div class="price-section-tag"><span class="material-icons-outlined" style="font-size:14px">child_care</span>Educação Infantil</div>';
-    h+='<div class="grid2">'+pf('explorador','Exploradores de Máquinas (kit)')+pf('lego_duplo','LEGO Duplo Deluxe 10914 (kit)')+'</div>';
-    if(S.opts.lapbook_ei) h+=pf('lapbook_ei','Lapbook G4/G5 (por aluno)');
+    h+='<div class="grid2">'+pf('explorador','9203595 Exploradores de Máquinas (kit)')+pf('lego_duplo','9203677 - LEGO CX DE PEÇAS DELUXE - 10914 (kit)')+'</div>';
+    if(S.opts.lapbook_ei) h+=pf('lapbook_ei','Lapbook G4/G5 (por aluno)'); // LAPBOOK G4 E G5
     h+='</div>';
   }
   if(S.segs.ai){
     h+='<div class="price-section"><div class="price-section-tag"><span class="material-icons-outlined" style="font-size:14px">menu_book</span>Anos Iniciais</div>';
-    h+='<div class="grid2">'+pf('mais_mat','Mais Matemática (kit)')+pf('comp_ia8','Computação & IA 8+ (kit)')+'</div>';
-    if(S.opts.lapbook_ai1) h+=pf('lapbook_ai1','Lapbook 1º Ano (por aluno)');
-    if(S.opts.livro_ai) h+=pf('livro_ai','Livro 2º ao 5º Ano (por aluno)');
+    h+='<div class="grid2">'+pf('mais_mat','9202605 - +MATEMÁTICA 1-2-CONJ. PRINC, (NAC) 45210 (kit)')+pf('comp_ia8','9203546 - LE CS& IA 8+ 45521 (kit)')+'</div>';
+    if(S.opts.lapbook_ai1) h+=pf('lapbook_ai1','Lapbook 1º Ano (por aluno)'); // LAPBOOK 1o ANO
+    if(S.opts.livro_ai) h+=pf('livro_ai','Livro 2º ao 5º Ano (por aluno)'); // LIVRO 2o AO 5o ANO
     if(S.opts.fll_ai){
-      h+='<div class="grid2">'+pf('fll_tapete_ai','FLL — Tapete')+pf('fll_motor_ai','FLL — Motor Simples')+pf('fll_ctrl_ai','FLL — Controlador')+pf('fll_cartao_ai','FLL — Cartão de Conexão')+'</div>';
+      h+='<div class="grid2">'+pf('fll_tapete_ai','9203645 - FLL 8+ 11+ 26.27 BIOGLOW - 45834')+pf('fll_motor_ai','9203655 - 45650 - LE SINGLE MOTOR SUB FLL')+pf('fll_ctrl_ai','9203656 - 45652 - LE CONTROLLER SUB FLL')+pf('fll_cartao_ai','9203666 - 45657 - LE CONNECTION CARDS PACK SUB FLL')+'</div>';
     }
     h+='<div class="divider"></div>';
     h+='<div style="font-size:12px;font-weight:600;color:var(--sys-on-surface-variant);text-transform:uppercase;letter-spacing:.6px;margin-bottom:var(--space-sm)">Itens Obrigatórios — Anos Iniciais</div>';
-    h+='<div class="grid2">'+pf('microbit_ai','Placa BBC micro:bit (AI)')+pf('multicharger_ai','Multicharger (AI)')+pf('cabo_multicharger_ai','Cabo de conexão Multicharger (AI)')+'</div></div>';
+    h+='<div class="grid2">'+pf('microbit_ai','111767192 : PLACA BBC MICROBIT V2.2 (AI)')+pf('multicharger_ai','9203415 - LE MULTI-CHARGER 8 USB C - 45624 (AI)')+pf('cabo_multicharger_ai','11234529 - CABO DE FORCA 2P+T 10 A C5 1.2M (AI)')+'</div></div>';
   }
   if(S.segs.af){
     h+='<div class="price-section"><div class="price-section-tag"><span class="material-icons-outlined" style="font-size:14px">science</span>Anos Finais</div>';
-    h+=pf('comp_ia11','Computação & IA 11+ (kit)');
-    if(S.opts.livro_af) h+=pf('livro_af','Livro 6º ao 9º Ano (por aluno)');
-    if(S.opts.fll_af) h+=pf('fll_tapete_af','FLL — Tapete (por laboratório)');
+    h+=pf('comp_ia11','9203547 - LE CS & IA 11+ 45522 (kit)');
+    if(S.opts.livro_af) h+=pf('livro_af','Livro 6º ao 9º Ano (por aluno)'); // LIVRO 6o AO 9o ANO
+    if(S.opts.fll_af) h+=pf('fll_tapete_af','9203645 - FLL 8+ 11+ 26.27 BIOGLOW - 45834 (por laboratório)');
     h+='<div class="divider"></div>';
     h+='<div style="font-size:12px;font-weight:600;color:var(--sys-on-surface-variant);text-transform:uppercase;letter-spacing:.6px;margin-bottom:var(--space-sm)">Itens Obrigatórios — Anos Finais</div>';
-    h+='<div class="grid2">'+pf('microbit_af','Placa BBC micro:bit (AF)')+pf('multicharger_af','Multicharger (AF)')+pf('cabo_multicharger_af','Cabo de conexão Multicharger (AF)')+'</div></div>';
+    h+='<div class="grid2">'+pf('microbit_af','111767192 : PLACA BBC MICROBIT V2.2 (AF)')+pf('multicharger_af','9203415 - LE MULTI-CHARGER 8 USB C - 45624 (AF)')+pf('cabo_multicharger_af','11234529 - CABO DE FORCA 2P+T 10 A C5 1.2M (AF)')+'</div></div>';
   }
   h+='<div class="btn-row">';
   h+='<button class="btn-outlined" onclick="voltar(3)"><span class="material-icons-outlined">arrow_back</span> Voltar</button>';
@@ -850,7 +865,7 @@ function buildResultsHTML(agg, totalEscolas, totalAlunos, netLabel){
     +'<div class="summary-cell"><div class="val">'+totalEscolas.toLocaleString('pt-BR')+'</div><div class="lbl">Escolas atendidas</div></div>'
     +'<div class="summary-cell"><div class="val">'+totalAlunos.toLocaleString('pt-BR')+'</div><div class="lbl">Alunos (total segmentos)</div></div>'
     +'<div class="summary-cell"><div class="val">'+(grand>0&&totalEscolas>0?'R$ '+fmt(grand/totalEscolas):'—')+'</div><div class="lbl">Valor médio por escola</div></div>'
-    +'<div class="summary-cell"><div class="val">'+(grand>0&&totalAlunos>0?'R$ '+fmt(grand/totalAlunos):'—')+'</div><div class="lbl">Valor médio por aluno</div></div>'
+    +'<div class="summary-cell"><div class="val">'+(grand>0&&totalAlunos>0?'R$ '+fmt((grand/totalAlunos)/12):'—')+'</div><div class="lbl">Valor médio por aluno/mês</div></div>'
     +'</div>'
     +'<div class="table-wrap"><table>'
     +'<thead><tr><th>Produto</th><th style="text-align:right">Qtd. Total</th><th style="text-align:right">Valor Unit.</th><th style="text-align:right">Valor Total</th></tr></thead>'
