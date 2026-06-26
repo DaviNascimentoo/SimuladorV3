@@ -613,7 +613,7 @@ tfoot td:not(:first-child) { text-align: right; }
 const S = {
   rede:null, uf:null, uf_nome:null, mun_cod:null, mun_nome:null,
   segs:{ei:false,ai:false,af:false},
-  opts:{lapbook_ei:false,lapbook_ai1:false,livro_ai:false,fll_ai:false,livro_af:false,fll_af:false},
+  opts:{lapbook_ei:true,lapbook_ai1:false,livro_ai:false,fll_ai:false,livro_af:false,fll_af:false}, // lapbook_ei sempre true (obrigatório)
   prices:{}
 };
 let GEO={};
@@ -730,7 +730,7 @@ function buildStep3(){
   var h='';
   if(S.segs.ei){
     h+='<div class="opt-section"><div class="opt-section-title"><span class="material-icons-outlined" style="font-size:16px">child_care</span>Educação Infantil</div>';
-    h+=optItem('lapbook_ei','Lapbook para G4 e G5');
+    h+='<div style="font-size:12px;color:var(--sys-on-surface-variant);padding:4px 0 8px">Lapbook G4/G5 é obrigatório para este segmento.</div>';
     h+='</div>';
   }
   if(S.segs.ai){
@@ -795,7 +795,7 @@ function buildStep4(){
   if(S.segs.ei){
     h+='<div class="price-section"><div class="price-section-tag"><span class="material-icons-outlined" style="font-size:14px">child_care</span>Educação Infantil</div>';
     h+='<div class="grid2">'+pf('explorador','9203595 Exploradores de Máquinas (kit)')+pf('lego_duplo','9203677 - LEGO CX DE PEÇAS DELUXE - 10914 (kit)')+'</div>';
-    if(S.opts.lapbook_ei) h+=pf('lapbook_ei','Lapbook G4/G5 (por aluno)'); // LAPBOOK G4 E G5
+    h+=pf('lapbook_ei','Lapbook G4/G5 (por aluno)'); // LAPBOOK G4 E G5 — obrigatório
     h+='</div>';
   }
   if(S.segs.ai){
@@ -908,12 +908,12 @@ async function calcular(){
       var kpl=Math.ceil(e.ei_mt/4)||1;
       addAgg(agg,'Exploradores de Máquinas',kpl*e.ei_lab,S.prices.explorador,'EI');
       addAgg(agg,'LEGO Duplo Deluxe 10914',kpl*e.ei_lab,S.prices.lego_duplo,'EI');
-      if(S.opts.lapbook_ei) addAgg(agg,'Lapbook G4/G5',e.ei_mat,S.prices.lapbook_ei,'EI');
+      addAgg(agg,'Lapbook G4/G5',e.ei_mat,S.prices.lapbook_ei,'EI'); // obrigatório
       addAgg(agg,'Licença Nexis — EI',e.ei_mat,S.prices.nexis,'GERAL');
       totalAlunos+=e.ei_mat; segsEsc.push('EI');
       row.EI_Laboratorios=e.ei_lab; row.EI_Alunos=e.ei_mat; row.EI_Maior_Turma=e.ei_mt;
       row.EI_Exploradores_Maquinas_kits=kpl*e.ei_lab; row.EI_LEGO_Duplo_kits=kpl*e.ei_lab;
-      row.EI_Lapbook_G4G5_alunos=S.opts.lapbook_ei?e.ei_mat:0; row.EI_Licenca_Nexis_alunos=e.ei_mat;
+      row.EI_Lapbook_G4G5_alunos=e.ei_mat; row.EI_Licenca_Nexis_alunos=e.ei_mat; // lapbook_ei obrigatório
     }
     if(S.segs.ai&&e.ai_lab>0&&e.ai_mat>0){
       var kplAI=Math.ceil(e.ai_mt/4)||1;
